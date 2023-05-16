@@ -31,7 +31,7 @@ async function read({id_user_session}: IUserSessionReadRequest) {
   return repository.findOne({
     where: {
       id_user_session,
-      status: true,
+      status_active: true,
     },
   });
 }

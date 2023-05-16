@@ -3,7 +3,7 @@ import { Base } from "./Base"
 import { UserSession } from "./UserSession"
 import bcrypt from 'bcryptjs';
 
-@Entity()
+@Entity('users')
 export class User extends Base{
     @PrimaryGeneratedColumn()
     id_user: number
@@ -40,6 +40,9 @@ export class User extends Base{
 
     @OneToMany(() => UserSession, (userSession) => userSession.user)
     user_sessions: UserSession[]
+
+    @Column()
+    roles_id_role: number;
 
     @BeforeInsert()
     @BeforeUpdate()

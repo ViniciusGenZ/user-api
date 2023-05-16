@@ -20,12 +20,14 @@ const updateSessionWithTwoFaCode = async (session: IUserSession) => {
     upperCaseAlphabets: false,
   });
 
+  const code = await bcrypt.hash(otp, 6);
+
   await sessionService.update({
     filter: {
       id_user_session: session?.id_user_session,
     },
     values: {
-      code: await bcrypt.hash(otp, 6),
+      code,
       code_expiration: code_expiration,
     },
   });
@@ -40,7 +42,7 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await userService.authenticate(body);
     if (!user) return formatResponse(res, 404, "User not found");
-    
+    console.log(user.user_sessions.filter((item) => item.ip == ip))
     const hasSession = user.user_sessions.filter((item) => item.ip == ip);
     if (hasSession.length > 0) {
       if (
@@ -74,7 +76,7 @@ export const login = async (req: Request, res: Response) => {
       ip,
       expiration_date,
       user_agent: useragent?.source as string,
-      user_id_user: user.id_user,
+      users_id_user: user.id_user,
       created_by: 1,
       updated_by: 1,
       session_types_id_session_type: 1,

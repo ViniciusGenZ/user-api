@@ -15,7 +15,7 @@ export type ISessionTypeCreateRequest = Omit<
   ISessionType,
   | keyof IBase
   | "id_session_type"
-  | "status"
+  | "status_active"
   | "sessions"
 >;
 

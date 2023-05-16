@@ -47,14 +47,14 @@ async function read(
   const user = await repository.findOne({
     where: {
       id_user: input.id_user,
-      status: true,
+      status_active: true,
     },
   });
   if (!user) return null;
 
   const sessions = await sessionsRepository.find({
     where: {
-      status: true,
+      status_active: true,
     },
     order: {
       id_user_session: "DESC",
@@ -72,7 +72,7 @@ async function authenticate({
   const user = await repository.findOne({
     where: {
       email,
-      status: true,
+      status_active: true,
     },
   });
   if (!user) return null;
@@ -80,7 +80,7 @@ async function authenticate({
   if (await bcrypt.compare(password, user.password)) {
     const sessions = await sessionsRepository.find({
       where: {
-        status: true,
+        status_active: true,
       },
       order: {
         id_user_session: "DESC",

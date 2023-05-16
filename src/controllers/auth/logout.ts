@@ -9,12 +9,12 @@ export const logout = async (req: Request, res: Response) => {
     const { user_id, id_session } = req.decocedJwt;
     await sessionService.update({
       filter: {
-        user_id_user: user_id,
+        users_id_user: user_id,
         id_user_session: id_session,
-        status: true,
+        status_active: true,
       },
       values: {
-        status: false,
+        status_active: false,
       },
     });
 

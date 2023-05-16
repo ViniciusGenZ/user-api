@@ -8,9 +8,9 @@ import { read } from "@controllers/user/read";
 const userRouter = Router();
 
 userRouter.get('/:id', read);
-
+userRouter.post("/", userCreateValidation, create);
 userRouter.use(authMiddleware);
 
-userRouter.post("/", userCreateValidation, create);
+
 
 export default userRouter;

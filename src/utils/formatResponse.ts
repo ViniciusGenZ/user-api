@@ -4,9 +4,11 @@ interface ResponseLayout {
   code: number;
   success: boolean;
   message?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const formatResponse = (res: Response, code: number, message?: string, data?: any) => {
   const body: ResponseLayout = {
     code,

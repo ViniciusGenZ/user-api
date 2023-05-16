@@ -12,11 +12,11 @@ export const forceLogout = async (req: Request, res: Response) => {
     
     await sessionService.update({
       filter: {
-        user_id_user: user.id_user,
-        status: true,
+        users_id_user: user.id_user,
+        status_active: true,
       },
       values: {
-        status: false,
+        status_active: false,
       },
     });
 

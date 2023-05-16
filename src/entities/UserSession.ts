@@ -12,7 +12,7 @@ import { SessionType } from "./SessionType";
 import { User } from "./User";
 import bcrypt from "bcryptjs";
 
-@Entity()
+@Entity("user_sessions")
 export class UserSession extends Base {
   @PrimaryGeneratedColumn()
   id_user_session: number;
@@ -30,13 +30,13 @@ export class UserSession extends Base {
   expiration_date: Date;
 
   @Column()
-  user_id_user: number;
+  users_id_user: number;
 
   @Column()
   session_types_id_session_type: number;
 
   @ManyToOne(() => User, (user) => user.user_sessions)
-  @JoinColumn({ name: "user_id_user", referencedColumnName: "id_user" })
+  @JoinColumn({ name: "users_id_user", referencedColumnName: "id_user" })
   user: User;
 
   @ManyToOne(() => SessionType, (sessionType) => sessionType.sessions)

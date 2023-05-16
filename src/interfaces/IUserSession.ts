@@ -15,7 +15,7 @@ export interface IUserSession extends IBase {
   authorized: boolean;
   user_agent: string;
   session_types_id_session_type: number;
-  user_id_user: number;
+  users_id_user: number;
   expiration_date: Date;
   user?: IUser;
   session_type?: ISessionType;
@@ -60,8 +60,8 @@ export type IUserSessionUpdateRequest = Partial<
 export type IUserSessionUpdateResponse = IUserSession;
 
 export type IUserSessionUpdateManyRequest = IUpdateManyRequest<
-  Partial<Omit<IUserSession, keyof Omit<IBase, "status">>>,
-  Partial<Omit<IUserSession, keyof Omit<IBase, "status">>>
+  Partial<Omit<IUserSession, keyof Omit<IBase, "status_active">>>,
+  Partial<Omit<IUserSession, keyof Omit<IBase, "status_active">>>
 >;
 
 export type IUserSessionUpdateManyResponse = IUpdateManyResponse<IUserSession>;

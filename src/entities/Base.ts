@@ -12,7 +12,7 @@ export class Base extends BaseEntity{
     deleted_at: Date; 
 
     @Column({default: true})
-    status: boolean;
+    status_active: boolean;
 
     @Column()
     created_by: number;
