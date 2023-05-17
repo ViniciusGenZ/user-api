@@ -52,7 +52,7 @@ export const login = async (req: Request, res: Response) => {
         const session = hasSession.find(
           (item) => item.user_agent == useragent?.source
         );
-        
+        if(!session?.authorized)
         await updateSessionWithTwoFaCode(session as IUserSession);
 
         return formatResponse(
