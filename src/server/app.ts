@@ -13,7 +13,7 @@ import userRouter from '@routes/user';
 const app = express();
 
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cors({origin: "*"}));
 app.use(userAgent.express());
 app.use(express.json());
 

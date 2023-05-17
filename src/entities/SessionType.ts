@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BaseEntity } from "typeorm"
 import { UserSession } from "./UserSession"
 
-@Entity()
+@Entity("session_types")
 export class SessionType extends BaseEntity{
     @PrimaryGeneratedColumn()
     id_session_type: number

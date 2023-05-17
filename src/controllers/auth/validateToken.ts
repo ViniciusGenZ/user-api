@@ -14,6 +14,7 @@ export const validateToken = (
     });
     return res.status(200).json(formatResponse(res, 200, 'OK', {}));
   } catch (err) {
+    console.log(err)
     return defaultErrorTreatment(res, err);
   }
 };

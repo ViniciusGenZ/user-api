@@ -8,6 +8,7 @@ import { loginValidation } from '@validations/login';
 import { logout } from '@controllers/auth/logout';
 import { forceLogout } from '@controllers/auth/forceLogout';
 import { twoFA } from '@controllers/auth/twoFA';
+import { validateToken } from '@controllers/auth/validateToken';
 
 const authRouter = Router();
 
@@ -20,6 +21,6 @@ authRouter.post('/logout', logout);
 authRouter.get('/twoFA', twoFA);
 // authRouter.post('/logout', logout);
 // authRouter.post('/twofa', twoFA);
-// authRouter.get('/validateToken', validateToken);
+authRouter.get('/validateToken', validateToken);
 
 export default authRouter;
