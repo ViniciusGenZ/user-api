@@ -42,7 +42,7 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await userService.authenticate(body);
     if (!user) return formatResponse(res, 404, "User not found");
-    console.log(user.user_sessions.filter((item) => item.ip == ip))
+
     const hasSession = user.user_sessions.filter((item) => item.ip == ip);
     if (hasSession.length > 0) {
       if (
@@ -52,7 +52,9 @@ export const login = async (req: Request, res: Response) => {
         const session = hasSession.find(
           (item) => item.user_agent == useragent?.source
         );
+        
         await updateSessionWithTwoFaCode(session as IUserSession);
+
         return formatResponse(
           res,
           200,
@@ -96,7 +98,7 @@ export const login = async (req: Request, res: Response) => {
       )
     );
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return defaultErrorTreatment(res, err);
   }
 };

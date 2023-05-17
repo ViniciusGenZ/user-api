@@ -18,7 +18,7 @@ authRouter.post('/forceLogout', forceLogout);
 authRouter.use(authMiddleware);
 
 authRouter.post('/logout', logout);
-authRouter.get('/twoFA', twoFA);
+authRouter.post('/twoFA', twoFA);
 // authRouter.post('/logout', logout);
 // authRouter.post('/twofa', twoFA);
 authRouter.get('/validateToken', validateToken);
