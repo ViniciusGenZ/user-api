@@ -20,7 +20,9 @@ function generateRespToken(
   id_session: number,
   authorized: boolean,
   email: string,
-  name: string
+  name: string,
+  ip: string,
+  userAgent: string,
 ) {
   try {
     // 60 seconds * 60 minutes * 24 horas
@@ -32,7 +34,9 @@ function generateRespToken(
       user_id,
       id_session,
       email,
-      name
+      name,
+      ip,
+      userAgent
     });
 
     const resp = {

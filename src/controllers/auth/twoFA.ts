@@ -5,6 +5,9 @@ import sessionService from "@services/userSession";
 import bcrypt from "bcryptjs";
 import tokenService from "@services/token";
 import mailService from "@services/mail";
+import userService from "@services/user";
+import { IUser } from "@interfaces/IUser";
+import lodash from "lodash";
 
 export const twoFA = async (req: Request, res: Response) => {
   try {
@@ -22,6 +25,11 @@ export const twoFA = async (req: Request, res: Response) => {
     if (!(await bcrypt.compare(`${body.code}`, session?.code as string))) {
       return formatResponse(res, 401, "Code do not match");
     }
+
+    const user = await userService.read({ id_user: user_id }) as IUser
+    const userInResp: Partial<IUser> = lodash.cloneDeep(user)
+    delete userInResp.user_sessions
+    delete userInResp.password
 
     await sessionService.update({
       filter: {
@@ -46,7 +54,23 @@ export const twoFA = async (req: Request, res: Response) => {
       res,
       200,
       "OK",
-      tokenService.generateRespToken(user_id, session.id_user_session, true, email, name)
+      {
+        token: tokenService.generateRespToken(
+          user.id_user,
+          session?.id_user_session as number,
+          true,
+          user.email,
+          user.name,
+          session.ip,
+          session.user_agent
+        ).token,
+        session: {
+          id_user_session: session?.id_user_session,
+          authorized: true,
+          expiration_date: session?.expiration_date,
+        },
+        user: userInResp
+      }
     );
   } catch (err) {
     console.log(err)

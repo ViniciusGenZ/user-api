@@ -5,6 +5,8 @@ export interface ITokenData {
     authorized?: boolean;
     email: string;
     name: string;
+    ip: string;
+    userAgent: string;
 }
 
 export interface IValidateTokenRequest {
