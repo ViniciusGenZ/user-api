@@ -26,7 +26,7 @@ export const authMiddleware = (
         data: er.body,
       });
     }
-    return res.status(500).json({
+    return res.status(401).json({
       success: false,
       message: 'Error to decode jwt',
     });

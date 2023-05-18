@@ -3,6 +3,8 @@ export interface ITokenData {
     user_id: number;
     id_session?: number;
     authorized?: boolean;
+    email: string;
+    name: string;
 }
 
 export interface IValidateTokenRequest {

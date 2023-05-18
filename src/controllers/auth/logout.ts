@@ -20,6 +20,7 @@ export const logout = async (req: Request, res: Response) => {
 
     return formatResponse(res, 200, "Session logged out with success");
   } catch (err) {
+    console.log(err)
     return defaultErrorTreatment(res, err);
   }
 };

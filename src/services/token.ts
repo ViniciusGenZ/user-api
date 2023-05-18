@@ -18,7 +18,9 @@ function createToken(data: ITokenData): string {
 function generateRespToken(
   user_id: number,
   id_session: number,
-  authorized: boolean
+  authorized: boolean,
+  email: string,
+  name: string
 ) {
   try {
     // 60 seconds * 60 minutes * 24 horas
@@ -29,6 +31,8 @@ function generateRespToken(
       authorized,
       user_id,
       id_session,
+      email,
+      name
     });
 
     const resp = {

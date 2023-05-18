@@ -54,6 +54,7 @@ async function read(
 
   const sessions = await sessionsRepository.find({
     where: {
+      users_id_user: user.id_user,
       status_active: true,
     },
     order: {

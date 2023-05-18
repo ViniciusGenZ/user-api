@@ -8,6 +8,7 @@ import tokenService from "@services/token";
 import otpGenerator from "otp-generator";
 import { IUserSession } from "@interfaces/IUserSession";
 import bcrypt from "bcryptjs";
+import mailService from "@services/mail";
 
 const updateSessionWithTwoFaCode = async (session: IUserSession) => {
   const code_expiration = new Date();
@@ -31,7 +32,7 @@ const updateSessionWithTwoFaCode = async (session: IUserSession) => {
       code_expiration: code_expiration,
     },
   });
-  console.log(`Session: ${session?.id_user_session} two fa code: ${otp}`);
+  return otp;
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -43,18 +44,22 @@ export const login = async (req: Request, res: Response) => {
     const user = await userService.authenticate(body);
     if (!user) return formatResponse(res, 404, "User not found");
 
-    const hasSession = user.user_sessions.filter((item) => item.ip == ip);
+    const hasSession = user.user_sessions.filter((item) => item.ip === ip);
     if (hasSession.length > 0) {
       if (
         user.allow_multiple_sessions ||
-        hasSession.some((item) => item.user_agent == useragent?.source)
+        hasSession.some((item) => item.user_agent === useragent?.source)
       ) {
         const session = hasSession.find(
-          (item) => item.user_agent == useragent?.source
+          (item) => item.user_agent === useragent?.source
         );
-        if(!session?.authorized)
-        await updateSessionWithTwoFaCode(session as IUserSession);
-
+        if (!session?.authorized) {
+          const otp = await updateSessionWithTwoFaCode(session as IUserSession);
+          await mailService.sendOtp({
+            name: user.name,
+            address: user.email
+          }, otp)
+        }
         return formatResponse(
           res,
           200,
@@ -62,7 +67,9 @@ export const login = async (req: Request, res: Response) => {
           tokenService.generateRespToken(
             user.id_user,
             session?.id_user_session as number,
-            session?.authorized as boolean
+            session?.authorized as boolean,
+            user.email,
+            user.name
           )
         );
       }
@@ -74,6 +81,13 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
+    if (user.user_sessions.length > 0) {
+      const whereIsActive = hasSession.length == 1 ? hasSession[0] : null;
+      return formatResponse(res, 401, `Already have an active session`, {
+        ip: whereIsActive?.ip,
+        useragent: whereIsActive?.user_agent,
+      });
+    }
     const session = await sessionService.create({
       ip,
       expiration_date,
@@ -85,7 +99,11 @@ export const login = async (req: Request, res: Response) => {
     });
     user.user_sessions.push(session);
 
-    await updateSessionWithTwoFaCode(session as IUserSession);
+    const otp = await updateSessionWithTwoFaCode(session as IUserSession);
+    await mailService.sendOtp({
+      name: user.name,
+      address: user.email
+    }, otp)
 
     return formatResponse(
       res,
@@ -94,7 +112,9 @@ export const login = async (req: Request, res: Response) => {
       tokenService.generateRespToken(
         user.id_user,
         session?.id_user_session as number,
-        session?.authorized as boolean
+        session?.authorized as boolean,
+        user.email,
+        user.name
       )
     );
   } catch (err) {
