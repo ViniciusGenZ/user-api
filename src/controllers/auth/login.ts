@@ -9,6 +9,8 @@ import otpGenerator from "otp-generator";
 import { IUserSession } from "@interfaces/IUserSession";
 import bcrypt from "bcryptjs";
 import mailService from "@services/mail";
+import { IUser } from "@interfaces/IUser";
+import lodash from "lodash";
 
 const updateSessionWithTwoFaCode = async (session: IUserSession) => {
   const code_expiration = new Date();
@@ -44,6 +46,10 @@ export const login = async (req: Request, res: Response) => {
     const user = await userService.authenticate(body);
     if (!user) return formatResponse(res, 404, "User not found");
 
+    const userInResp: Partial<IUser> = lodash.cloneDeep(user)
+    delete userInResp.user_sessions
+    delete userInResp.password
+
     const hasSession = user.user_sessions.filter((item) => item.ip === ip);
     if (hasSession.length > 0) {
       if (
@@ -64,13 +70,21 @@ export const login = async (req: Request, res: Response) => {
           res,
           200,
           "OK",
-          tokenService.generateRespToken(
-            user.id_user,
-            session?.id_user_session as number,
-            session?.authorized as boolean,
-            user.email,
-            user.name
-          )
+          {
+            token: tokenService.generateRespToken(
+              user.id_user,
+              session?.id_user_session as number,
+              session?.authorized as boolean,
+              user.email,
+              user.name
+            ),
+            session: {
+              id_user_session: session?.id_user_session,
+              authorized: session?.authorized,
+              expiration_date: session?.expiration_date,
+            },
+            user: userInResp
+          }
         );
       }
 
@@ -109,13 +123,21 @@ export const login = async (req: Request, res: Response) => {
       res,
       200,
       "OK",
-      tokenService.generateRespToken(
-        user.id_user,
-        session?.id_user_session as number,
-        session?.authorized as boolean,
-        user.email,
-        user.name
-      )
+      {
+        token: tokenService.generateRespToken(
+          user.id_user,
+          session?.id_user_session as number,
+          session?.authorized as boolean,
+          user.email,
+          user.name
+        ),
+        session: {
+          id_user_session: session?.id_user_session,
+          authorized: session?.authorized,
+          expiration_date: session?.expiration_date,
+        },
+        user: userInResp
+      }
     );
   } catch (err) {
     console.log(err);

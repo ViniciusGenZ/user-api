@@ -37,7 +37,6 @@ function generateRespToken(
 
     const resp = {
       token,
-      authorized,
     };
     return resp;
   } catch {
