@@ -16,7 +16,7 @@ export class SessionType extends BaseEntity{
     name_br: string
 
     @Column()
-    status: boolean
+    status_active: boolean
 
     @OneToMany(() => UserSession, (userSession) => userSession.session_type)
     sessions: UserSession[]

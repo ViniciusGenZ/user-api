@@ -6,7 +6,7 @@ export interface ISessionType {
     name_py: string
     name_en: string
     name_br: string
-    status: boolean
+    status_active: boolean
     sessions?: IUserSession[]
 }
 export type ISessionTypeFilters = Partial<Omit<ISessionType, keyof IBase>>;
