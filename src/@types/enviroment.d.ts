@@ -7,10 +7,8 @@ declare global {
       DATABASE_PASSWORD: string;
       DATABASE: string;
       PORT: string;
-      ENV: 'test' | 'dev' | 'prod';
-      authservice: string;
+      ENV: "test" | "dev" | "prod";
       jwtSecret: string;
-      userservice: string;
       AWS_ACCESS_KEY_ID: string;
       AWS_SECRET_ACCESS_KEY: string;
       SES_EMAIL: string;
