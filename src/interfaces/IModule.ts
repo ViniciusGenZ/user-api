@@ -7,7 +7,7 @@ export interface IModule {
     name_py: string
     name_en: string
     name_br: string
-    status_active: boolean
+    maintenance: boolean
 }
 export type IModuleFilters = Partial<Omit<IModule, 'permissions'>>;
 
