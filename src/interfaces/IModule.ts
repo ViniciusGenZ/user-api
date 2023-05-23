@@ -1,15 +1,15 @@
 import { IBase, IListRequest, IListResponse } from "./IBase";
-import { IUserSession } from "./IUserSession";
+import { IPermission } from "./IPermission";
 
 export interface IModule {
     id_module: number
-    permissions?: IUserSession[]
+    permissions?: IPermission[]
     name_py: string
     name_en: string
     name_br: string
     status_active: boolean
 }
-export type IModuleFilters = Partial<Omit<IModule, keyof IBase>>;
+export type IModuleFilters = Partial<Omit<IModule, keyof IBase | 'permissions'>>;
 
 export type IModuleCreateRequest = Omit<
     IModule,

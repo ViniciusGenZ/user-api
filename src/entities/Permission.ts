@@ -5,9 +5,11 @@ import {
     PrimaryGeneratedColumn,
     ManyToOne,
     JoinColumn,
+    ManyToMany,
   } from "typeorm";
   import { Base } from "./Base";
 import { Module } from "./Modules";
+import { Role } from "./Role";
   
   @Entity("permissions")
   export class Permission extends Base {
@@ -27,5 +29,8 @@ import { Module } from "./Modules";
         default: IHttpMethodsEnum.GET
     })
     method: IHttpMethodsEnum;
+
+    @ManyToMany(() => Role, (role) => role.permissions)
+    role: Role[]
   }
   
