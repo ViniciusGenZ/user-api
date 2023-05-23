@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import { formatResponse } from '../../utils/formatResponse';
 import defaultErrorTreatment from '../../errors/defaultErrorTreatment';
-import roleService from '@services/role';
+import userService from '@services/user';
 
 export const del = async (
     req: Request,
@@ -10,9 +10,12 @@ export const del = async (
 ) => {
     try {
         const { user_id } = req.decocedJwt
-        const deleted = await roleService.del({
-            id_role: Number(req.params.id),
-            by: user_id
+        const deleted = await userService.del({
+            id_user: Number(req.params.id),
+            updated_by: user_id,
+            updated_at: new Date(),
+            deleted_by: user_id,
+            deleted_at: new Date(),
         })
         return formatResponse(res, 200, 'OK', deleted);
     } catch (err) {

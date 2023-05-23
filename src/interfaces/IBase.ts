@@ -8,8 +8,6 @@ export interface IBase {
   deleted_by: number;
 }
 
-export type IBaseCreateToOmit = Omit<IBase, "created_by" | "updated_by">;
-
 export interface IListRequest<T> {
   offset?: number;
   limit?: number;

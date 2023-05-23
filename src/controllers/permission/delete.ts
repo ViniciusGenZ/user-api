@@ -2,17 +2,19 @@ import { Request, Response } from 'express';
 
 import { formatResponse } from '../../utils/formatResponse';
 import defaultErrorTreatment from '../../errors/defaultErrorTreatment';
-import roleService from '@services/role';
+import permissionService from '@services/permission';
 
-export const update = async (
+export const del = async (
     req: Request,
     res: Response,
 ) => {
     try {
         const { user_id } = req.decocedJwt
-        const { id } = req.params
-        const updatedRole = await roleService.update(Number(id), { ...req.body, updated_by: user_id })
-        return formatResponse(res, 200, 'OK', updatedRole);
+        const deleted = await permissionService.del({
+            id_permission: Number(req.params.id),
+            by: user_id
+        })
+        return formatResponse(res, 200, 'OK', deleted);
     } catch (err) {
         return defaultErrorTreatment(res, err);
     }

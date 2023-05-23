@@ -1,4 +1,4 @@
-import { IBase, IBaseCreateToOmit, IListRequest, IListResponse } from "./IBase";
+import { IBase, IListRequest, IListResponse } from "./IBase";
 import { IUserSession } from "./IUserSession";
 
 export interface IUser extends IBase {
@@ -23,7 +23,8 @@ export type UserFilters = Partial<Omit<IUser, keyof IBase>>;
 
 export type IUserCreateRequest = Omit<
   IUser,
-  | keyof IBaseCreateToOmit
+  | "deleted_by"
+  | "deleted_at"
   | "id_user"
   | "allow_multiple_sessions"
   | "email_verified"
@@ -37,7 +38,8 @@ export type IUserCreateRequest = Omit<
 export type IUserCreateResponse = IUser;
 
 export interface IUserDeleteRequest {
-  id_User: number;
+  id_user: number;
+  by: number;
 }
 
 export type IUserDeleteResponse = IUser;
@@ -46,7 +48,7 @@ export type IUserReadRequest = Pick<IUser, "id_user">;
 
 export type IUserReadResponse = IUser;
 
-export type IUserUpdateRequest = Partial<Omit<IUser, keyof IBase>>;
+export type IUserUpdateRequest = Pick<IUser, "updated_by"> & Partial<Omit<IUser, "created_by" | "created_at">>;
 
 export type IUserUpdateResponse = IUser;
 

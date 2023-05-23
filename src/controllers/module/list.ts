@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 
-import { formatResponse } from '../../utils/formatResponse';
+import {formatResponse} from '../../utils/formatResponse';
 import defaultErrorTreatment from '../../errors/defaultErrorTreatment';
-import roleService from '@services/role';
+import moduleService from '@services/module';
 
 export const list = async (
   req: Request,
@@ -14,8 +14,8 @@ export const list = async (
     const limit = Number(req.body.limit) ?? 10
     const offset = Number(req.body.page ?? 0) * limit
 
-    const roles = await roleService.list({ limit, offset, filter })
-    return formatResponse(res, 200, "OK", roles);
+    const modules = await moduleService.list({ limit, offset, filter })
+    return formatResponse(res, 200, "OK", modules);
   } catch (err) {
     return defaultErrorTreatment(res, err);
   }

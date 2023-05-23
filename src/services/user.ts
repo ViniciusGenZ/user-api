@@ -4,14 +4,18 @@ import {
   IUser,
   IUserCreateRequest,
   IUserCreateResponse,
+  IUserDeleteRequest,
   IUserListRequest,
   IUserListResponse,
   IUserReadRequest,
   IUserUpdateRequest,
+  IUserUpdateResponse,
 } from "@interfaces/IUser";
 import { appDataSource } from "data-source";
 import bcrypt from "bcryptjs";
 import { UserSession } from "@entities/UserSession";
+
+// TODO user delete should logout all sessions
 
 const repository = appDataSource.getRepository(User);
 const sessionsRepository = appDataSource.getRepository(UserSession);
@@ -20,6 +24,8 @@ const userService = {
   repository,
   create,
   read,
+  update,
+  del,
   list,
   authenticate,
 };
@@ -66,6 +72,14 @@ async function read(
   return user;
 }
 
+async function update(id_user: number, input: IUserUpdateRequest): Promise<IUserUpdateResponse> {
+  return (await repository.update({ id_user }, {...input, updated_at: new Date()})).raw[0];
+}
+
+async function del({ id_user, by }: IUserDeleteRequest) {
+  return (await repository.update({ id_user }, { status_active: false, updated_at: new Date(), deleted_at: new Date(), updated_by: by, deleted_by: by })).raw[0];
+}
+
 async function authenticate({
   email,
   password,
@@ -103,6 +117,8 @@ async function authenticate({
   } else {
     const values: IUserUpdateRequest = {
       login_attempts: user.login_attempts + 1,
+      updated_by: user.id_user,
+      updated_at: new Date(),
     };
 
     if (user.login_attempts > 2) {

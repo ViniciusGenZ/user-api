@@ -1,18 +1,19 @@
 import { appDataSource } from "data-source";
-import { IPermissionCreateRequest, IPermissionCreateResponse, IPermissionListRequest, IPermissionListResponse, IPermissionReadRequest, IPermissionUpdateRequest } from "@interfaces/IPermission";
+import { IPermissionCreateRequest, IPermissionCreateResponse, IPermissionDeleteRequest, IPermissionListRequest, IPermissionListResponse, IPermissionReadRequest, IPermissionUpdateRequest } from "@interfaces/IPermission";
 import { Permission } from "@entities/Permission";
 
 const repository = appDataSource.getRepository(Permission);
 
-const moduleService = {
+const permissionService = {
   repository,
   create,
   update,
   read,
-  list
+  del,
+  list,
 };
 
-export default moduleService;
+export default permissionService;
 
 async function create(
   input: IPermissionCreateRequest
@@ -21,8 +22,12 @@ async function create(
   return repository.save(newPermission);
 }
 
-async function update(input: IPermissionUpdateRequest) {
-  return repository.update({ id_permission: input.id_permission }, input);
+async function update(id_permission: number, input: IPermissionUpdateRequest) {
+  return repository.update({ id_permission }, {...input, updated_at: new Date()});
+}
+
+async function del({ id_permission, by }: IPermissionDeleteRequest) {
+  return (await repository.update({ id_permission }, { status_active: false, updated_at: new Date(), deleted_at: new Date(), updated_by: by, deleted_by: by })).raw[0];
 }
 
 async function read({ id_permission }: IPermissionReadRequest) {
