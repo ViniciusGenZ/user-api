@@ -1,8 +1,8 @@
-import { IListRequest, IListResponse } from "./IBase";
+import { IBase, IListRequest, IListResponse } from "./IBase";
 import { IHttpMethodsEnum } from "./IHttpMethodsEnum";
 import { IModule } from "./IModule";
 
-export interface IPermission {
+export interface IPermission extends IBase{
     id_permission: number
     url_access: string
     status_active: boolean
@@ -13,6 +13,8 @@ export type IPermissionFilters = Partial<IPermission>;
 
 export type IPermissionCreateRequest = Omit<
     IPermission,
+    | "deleted_at"
+    | "updated_at"
     | "id_permission"
     | "permissions"
 >;
@@ -21,6 +23,7 @@ export type IPermissionCreateResponse = IPermission;
 
 export interface IPermissionDeleteRequest {
     id_permission: number;
+    by: number;
 }
 
 export type IPermissionDeleteResponse = IPermission;
@@ -29,7 +32,7 @@ export type IPermissionReadRequest = Pick<IPermission, "id_permission">;
 
 export type IPermissionReadResponse = IPermission;
 
-export type IPermissionUpdateRequest = Pick<IPermission, "id_permission"> & Partial<IPermission>
+export type IPermissionUpdateRequest = Pick<IPermission, "updated_by"> & Partial<IPermission>
 
 export type IPermissionUpdateResponse = IPermission;
 

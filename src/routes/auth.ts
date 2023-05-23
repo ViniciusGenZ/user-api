@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-
 import {Router} from 'express';
 
 import {authMiddleware} from '@middlewares/jwt';

@@ -107,6 +107,9 @@ export const login = async (req: Request, res: Response) => {
       created_by: 1,
       updated_by: 1,
       session_types_id_session_type: 1,
+      status_active: true,
+      created_at: new Date(),
+      updated_at: new Date()
     });
     user.user_sessions.push(session);
 

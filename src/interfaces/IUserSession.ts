@@ -1,6 +1,5 @@
 import {
   IBase,
-  IBaseCreateToOmit,
   IListRequest,
   IListResponse,
   IUpdateManyRequest,
@@ -30,7 +29,8 @@ export type IUserSessionFilters = Partial<
 
 export type IUserSessionCreateRequest = Omit<
   IUserSession,
-  | keyof IBaseCreateToOmit
+  | "deleted_at"
+  | "deleted_by"
   | "id_user_session"
   | "authorized"
   | "code"
@@ -45,6 +45,10 @@ export type IUserSessionCreateResponse = IUserSession;
 
 export interface IUserSessionDeleteRequest {
   id_session: number;
+  updated_at: Date;
+  updated_by: number;
+  deleted_at: Date;
+  deleted_by: number;
 }
 
 export type IUserSessionDeleteResponse = IUserSession;
@@ -53,7 +57,7 @@ export type IUserSessionReadRequest = Pick<IUserSession, "id_user_session">
 
 export type IUserSessionReadResponse = IUserSession;
 
-export type IUserSessionUpdateRequest = Partial<
+export type IUserSessionUpdateRequest = Pick<IUserSession, "updated_by"> & Partial<
   Omit<IUserSession, keyof IBase>
 >;
 

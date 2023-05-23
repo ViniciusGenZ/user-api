@@ -1,4 +1,4 @@
-import { IBase, IListRequest, IListResponse } from "./IBase";
+import { IListRequest, IListResponse } from "./IBase";
 import { IPermission } from "./IPermission";
 
 export interface IModule {
@@ -9,7 +9,7 @@ export interface IModule {
     name_br: string
     status_active: boolean
 }
-export type IModuleFilters = Partial<Omit<IModule, keyof IBase | 'permissions'>>;
+export type IModuleFilters = Partial<Omit<IModule, 'permissions'>>;
 
 export type IModuleCreateRequest = Omit<
     IModule,
@@ -21,6 +21,7 @@ export type IModuleCreateResponse = Omit<IModule, 'permissions'>;
 
 export interface IModuleDeleteRequest {
     id_module: number;
+    by: number;
 }
 
 export type IModuleDeleteResponse = IModule;
@@ -29,7 +30,7 @@ export type IModuleReadRequest = Pick<IModule, "id_module">;
 
 export type IModuleReadResponse = IModule;
 
-export type IModuleUpdateRequest = Pick<IModule, "id_module"> & Partial<Omit<IModule, 'permissions'>>
+export type IModuleUpdateRequest = Partial<Omit<IModule, 'permissions'>>
 
 export type IModuleUpdateResponse = IModule;
 

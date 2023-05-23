@@ -2,15 +2,17 @@ import { Request, Response } from 'express';
 
 import { formatResponse } from '../../utils/formatResponse';
 import defaultErrorTreatment from '../../errors/defaultErrorTreatment';
-import roleService from '@services/role';
+import permissionService from '@services/permission';
 
-export const read = async (
+export const create = async (
   req: Request,
   res: Response,
 ) => {
   try {
-    const role = await roleService.read({ id_role: Number(req.params.id) })
-    return formatResponse(res, 200, 'OK', role);
+    const { user_id } = req.decocedJwt;
+    const created = await permissionService.create({ ...req.body, created_at: user_id, updated_at: user_id })
+
+    return formatResponse(res, 200, 'OK', created);
   } catch (err) {
     return defaultErrorTreatment(res, err);
   }

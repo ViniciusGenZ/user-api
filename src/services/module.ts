@@ -1,14 +1,15 @@
 import { appDataSource } from "data-source";
 import { Module } from "@entities/Modules";
-import { IModuleCreateRequest, IModuleCreateResponse, IModuleListRequest, IModuleListResponse, IModuleReadRequest, IModuleUpdateRequest } from "@interfaces/IModule";
+import { IModuleCreateRequest, IModuleCreateResponse, IModuleDeleteRequest, IModuleListRequest, IModuleListResponse, IModuleReadRequest, IModuleUpdateRequest } from "@interfaces/IModule";
 
 const repository = appDataSource.getRepository(Module);
 
 const moduleService = {
   repository,
   create,
-  update,
   read,
+  update,
+  del,
   list
 };
 
@@ -21,8 +22,12 @@ async function create(
   return repository.save(newModuleSession);
 }
 
-async function update(input: IModuleUpdateRequest) {
-  return repository.update({ id_module: input.id_module }, input);
+async function update(id_module: number, input: IModuleUpdateRequest) {
+  return repository.update({ id_module }, input);
+}
+
+async function del(input: IModuleDeleteRequest) {
+  return (await repository.update({ id_module: input.id_module }, { status_active: false })).raw[0];
 }
 
 async function read({ id_module }: IModuleReadRequest) {

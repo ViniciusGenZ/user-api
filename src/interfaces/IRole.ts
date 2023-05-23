@@ -8,24 +8,21 @@ export interface IRole extends IBase {
     name_br: string
     permissions?: IPermission[]
 }
-export type IRoleFilters = Partial<Omit<IRole, 'sessions'>>;
+export type IRoleFilters = Partial<Omit<IRole, keyof IBase | 'sessions'>>;
 
 export type IRoleCreateRequest = Omit<
     IRole,
-    | "status_active"
-    | "deleted_at"
-    | "created_by"
-    | "updated_by"
-    | "deleted_by"
     | "id_role"
     | "permissions"
+    | "deleted_by"
+    | "deleted_at"
 >;
 
 export type IRoleCreateResponse = IRole;
 
 export interface IRoleDeleteRequest {
     id_role: number;
-    deleted_by: number;
+    by: number;
 }
 
 export type IRoleDeleteResponse = IRole;
@@ -34,11 +31,7 @@ export type IRoleReadRequest = Pick<IRole, "id_role">;
 
 export type IRoleReadResponse = IRole;
 
-export type IRoleUpdateRequest = Pick<IRole, "id_role"> & Partial<Omit<IRole, "deleted_at"
-    | "created_by"
-    | "deleted_by"
-    | "id_role"
-    | "permissions">>;
+export type IRoleUpdateRequest = Pick<IRole, "updated_by"> & Partial<Omit<IRole, "created_at"| "created_by" | 'sessions'>>;
 
 export type IRoleUpdateResponse = IRole;
 
