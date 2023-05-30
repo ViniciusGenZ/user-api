@@ -25,8 +25,7 @@ import { Role } from "./Role";
 
     @Column({
         type: 'enum',
-        enum: IHttpMethodsEnum,
-        default: IHttpMethodsEnum.GET
+        enum: IHttpMethodsEnum
     })
     method: IHttpMethodsEnum;
 

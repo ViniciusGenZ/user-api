@@ -26,5 +26,8 @@ import { Permission } from "./Permission";
 
     @Column()
     status_active: boolean
+
+    @Column()
+    maintenance: boolean
   }
   
