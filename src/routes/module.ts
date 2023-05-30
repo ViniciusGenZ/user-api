@@ -13,10 +13,10 @@ const moduleRouter = Router();
 moduleRouter.use(authMiddleware);
 moduleRouter.use(sessionMiddleware);
 
-moduleRouter.get('/:id', read);
 moduleRouter.post('/', create);
-moduleRouter.post('/list', list);
+moduleRouter.get('/:id', read);
 moduleRouter.put('/:id', update);
-moduleRouter.delete('/:id', del)
+moduleRouter.delete('/:id', del);
+moduleRouter.post('/list', list);
 
 export default moduleRouter;

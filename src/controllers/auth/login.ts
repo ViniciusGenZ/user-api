@@ -66,7 +66,7 @@ export const login = async (req: Request, res: Response) => {
   const { ip, useragent, body } = req;
   const expiration_date = new Date();
   expiration_date.setHours(expiration_date.getHours() + 4);
-
+  console.log(body)
   try {
     const user = await userService.authenticate(body);
     if (!user) throw new Err(404, "User not found")

@@ -13,10 +13,10 @@ const permissionRouter = Router();
 permissionRouter.use(authMiddleware);
 permissionRouter.use(sessionMiddleware);
 
-permissionRouter.get('/:id', read);
 permissionRouter.post('/', create);
-permissionRouter.post('/list', list);
+permissionRouter.get('/:id', read);
 permissionRouter.put('/:id', update);
 permissionRouter.delete('/:id', del)
+permissionRouter.post('/list', list);
 
 export default permissionRouter;

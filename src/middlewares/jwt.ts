@@ -18,6 +18,7 @@ export const authMiddleware = (
     req.decocedJwt = decodedJwtData;
     return next();
   } catch (err) {
+    console.log(err)
     if (Err.isErr(err)) {
       const er = err as Err;
       return res.status(er.code).json({

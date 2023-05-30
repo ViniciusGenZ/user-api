@@ -9,7 +9,7 @@ export const read = async (
   res: Response,
 ) => {
   try {
-    const module = await moduleService.read({id_module: Number(req.params.id)})
+    const module = await moduleService.read({id_modules_sys: Number(req.params.id)})
     return formatResponse(res, 200, 'OK', module);
   } catch (err) {
     return defaultErrorTreatment(res, err);

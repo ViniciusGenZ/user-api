@@ -4,6 +4,9 @@ import { UserSession } from "@entities/UserSession"
 import "reflect-metadata"
 import { DataSource } from "typeorm"
 import dotenv from "dotenv"
+import { Permission } from "@entities/Permission"
+import { Role } from "@entities/Role"
+import { Module } from "@entities/Module"
 
 dotenv.config()
 
@@ -16,7 +19,7 @@ export const appDataSource = new DataSource({
     database: process.env.DATABASE,
     synchronize: false,
     logging: true,
-    entities: [UserSession, User, SessionType],
+    entities: [UserSession, User, SessionType, Permission, Role, Module],
     migrations: [],
     subscribers: [],
 })

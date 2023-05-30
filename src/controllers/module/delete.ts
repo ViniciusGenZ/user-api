@@ -11,7 +11,7 @@ export const del = async (
     try {
         const { user_id } = req.decocedJwt
         const deleted = await moduleService.del({
-            id_module: Number(req.params.id),
+            id_modules_sys: Number(req.params.id),
             by: user_id
         })
         return formatResponse(res, 200, 'OK', deleted);

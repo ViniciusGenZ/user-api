@@ -18,6 +18,5 @@ authRouter.use(sessionMiddleware);
 
 authRouter.get('/logout', logout);
 authRouter.post('/twoFA', twoFA);
-authRouter.post('/logout', logout);
 
 export default authRouter;

@@ -9,8 +9,8 @@ export interface IBase {
 }
 
 export interface IListRequest<T> {
-  offset?: number;
-  limit?: number;
+  offset: number;
+  limit: number;
   deleted?: boolean;
   filter: T;
 }
