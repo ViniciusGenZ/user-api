@@ -32,29 +32,87 @@ const userService = {
 
 export default userService;
 
-async function list(input: IUserListRequest): Promise<IUserListResponse> {
+async function list(input: IUserListRequest, all?: boolean): Promise<IUserListResponse> {
   const [rows, count] = await repository.findAndCount({
     skip: input.offset,
     take: input.limit,
     where: input.filter,
+    select: {
+      id_user: true,
+      email: true,
+      name: true,
+      surname: true,
+      document: true,
+      phone_number: true,
+      whats: true,
+      birthdate: true,
+      allow_multiple_sessions: true,
+      email_verified: true,
+      phone_number_verified: true,
+      user_sessions: true,
+      login_attempts: true,
+      ban_expiration: true,
+      banned: true,
+      email_verification_code_expiration: true,
+      phone_number_verification_code_expiration: true,
+      status_active: true,
+      created_at: true,
+      updated_at: true,
+      deleted_at: true,
+      created_by: true,
+      updated_by: true,
+      deleted_by: true,
+      password: all ? true : false,
+      email_verification_code: all ? true : false,
+      phone_number_verification_code: all ? true : false,
+    }
   });
 
   return { count, rows };
 }
 
 async function create(input: IUserCreateRequest): Promise<IUserCreateResponse> {
-  const newUser = userService.repository.create(input);
+  const newUser = userService.repository.create({...input, created_at: new Date(), updated_at: new Date()});
   return repository.save(newUser);
 }
 
 async function read(
-  input: IUserReadRequest
+  input: IUserReadRequest, all?: boolean
 ): Promise<IUserCreateResponse | null> {
   const user = await repository.findOne({
     where: {
       id_user: input.id_user,
       status_active: true,
     },
+    select: {
+      id_user: true,
+      email: true,
+      name: true,
+      surname: true,
+      document: true,
+      phone_number: true,
+      whats: true,
+      birthdate: true,
+      allow_multiple_sessions: true,
+      email_verified: true,
+      phone_number_verified: true,
+      user_sessions: true,
+      login_attempts: true,
+      ban_expiration: true,
+      banned: true,
+      email_verification_code_expiration: true,
+      phone_number_verification_code_expiration: true,
+      status_active: true,
+      created_at: true,
+      updated_at: true,
+      deleted_at: true,
+      created_by: true,
+      updated_by: true,
+      deleted_by: true,
+      password: all ? true : false,
+      email_verification_code: all ? true : false,
+      phone_number_verification_code: all ? true : false,
+    }
   });
   if (!user) return null;
 
@@ -102,6 +160,10 @@ async function authenticate({
       },
     });
     user.user_sessions = sessions;
+
+    user.password = '';
+    user.email_verification_code = '';
+    user.phone_number_verification_code = '';
 
     await repository.update(
       {

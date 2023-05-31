@@ -18,6 +18,10 @@ export interface IUser extends IBase {
   login_attempts: number;
   ban_expiration: Date;
   banned: boolean;
+  email_verification_code: string;
+  email_verification_code_expiration: Date;
+  phone_number_verification_code: string;
+  phone_number_verification_code_expiration: Date;
 }
 export type UserFilters = Partial<Omit<IUser, keyof IBase>>;
 
