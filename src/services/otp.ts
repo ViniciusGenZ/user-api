@@ -7,7 +7,7 @@ const optService = {
 export default optService;
 
 function generateOTP() {
-    return otpGenerator.generate(6, {
+    return otpGenerator.generate(8, {
     digits: true,
     lowerCaseAlphabets: false,
     specialChars: false,

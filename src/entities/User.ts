@@ -45,16 +45,16 @@ export class User extends Base {
     email_verified: boolean
 
     @Column({ nullable: true })
-    email_verification_code: string
+    email_verification_code: string;
 
     @Column({ nullable: true })
     email_verification_code_expiration: Date;
 
     @Column({ default: false })
-    phone_number_verified: boolean
+    phone_number_verified: boolean;
 
     @Column({ nullable: true })
-    phone_number_verification_code: string
+    phone_number_verification_code: string;
 
     @Column({ nullable: true })
     phone_number_verification_code_expiration: Date;
@@ -71,8 +71,8 @@ export class User extends Base {
     @BeforeInsert()
     @BeforeUpdate()
     async hashs() {
-        this.password = await bcrypt.hash(this.password, 8)
-        this.email_verification_code = await bcrypt.hash(this.email_verification_code, 6);
-        this.phone_number_verification_code = await bcrypt.hash(this.phone_number_verification_code, 6);
+        if (this.password) this.password = await bcrypt.hash(this.password, 8)
+        if (this.email_verification_code) this.email_verification_code= await bcrypt.hash(this.email_verification_code as string, 6);
+        if (this.phone_number_verification_code) this.phone_number_verification_code = await bcrypt.hash(this.phone_number_verification_code as string, 6);
     }
 }

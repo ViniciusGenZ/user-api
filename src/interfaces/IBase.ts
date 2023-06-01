@@ -29,3 +29,5 @@ export interface IUpdateManyResponse<T> {
   count: number;
   rows: T[];
 }
+
+export type DeepNullable<T> = { [K in keyof T]: DeepNullable<T[K]> | null; };

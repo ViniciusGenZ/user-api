@@ -16,9 +16,10 @@ export const sessionMiddleware = async (
 
         const session = await sessionService.read({id_user_session: decocedJwt.id_session as number})
         if(!session)throw new Err(401, 'Invalid session')
-
         return next();
     } catch (err) {
+        console.log("error in session middleware")
+        console.log(err)
         return defaultErrorTreatment(res, err);
     }
 };

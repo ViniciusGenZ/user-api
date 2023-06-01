@@ -18,6 +18,7 @@ export const authMiddleware = (
     req.decocedJwt = decodedJwtData;
     return next();
   } catch (err) {
+    console.log("error in jwt decode")
     console.log(err)
     if (Err.isErr(err)) {
       const er = err as Err;

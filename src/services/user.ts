@@ -79,6 +79,10 @@ async function create(input: IUserCreateRequest): Promise<IUserCreateResponse> {
 async function read(
   input: IUserReadRequest, all?: boolean
 ): Promise<IUserCreateResponse | null> {
+  console.log({
+    id_user: input.id_user,
+    status_active: true,
+  })
   const user = await repository.findOne({
     where: {
       id_user: input.id_user,

@@ -17,7 +17,6 @@ export const verifyEmail = async (
         
         const user = await userService.read({ id_user: user_id }, true)
 
-        console.log(now, user?.email_verification_code_expiration)
         if (now > (user?.email_verification_code_expiration as Date)) {
             return formatResponse(res, 404, "Verification code expired")
         }
@@ -29,10 +28,9 @@ export const verifyEmail = async (
         const updated = await userService.update(
             Number(user_id),
             {
-                ...req.body,
                 updated_by: user_id,
-                email_verification_code: null,
-                email_verification_code_expiration: null,
+                email_verification_code: undefined,
+                email_verification_code_expiration: undefined,
                 email_verified: true
             }
         )
