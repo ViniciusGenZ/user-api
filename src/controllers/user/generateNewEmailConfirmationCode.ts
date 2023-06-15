@@ -26,7 +26,6 @@ export const generateNewEmailConfirmationCode = async (
                 updated_by: user_id,
                 email_verification_code: email_verification_code,
                 email_verification_code_expiration: code_expiration,
-                email_verified: true
             }
         )
 

@@ -135,7 +135,8 @@ async function read(
 }
 
 async function update(id_user: number, input: IUserUpdateRequest): Promise<IUserUpdateResponse> {
-  return (await repository.update({ id_user }, {...input, updated_at: new Date()})).raw[0];
+  const toUpdate = userService.repository.create({...input, updated_at: new Date()});
+  return (await repository.update({ id_user }, toUpdate)).raw[0];
 }
 
 async function del({ id_user, by }: IUserDeleteRequest) {

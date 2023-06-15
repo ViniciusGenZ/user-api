@@ -72,7 +72,7 @@ export class User extends Base {
     @BeforeUpdate()
     async hashs() {
         if (this.password) this.password = await bcrypt.hash(this.password, 8)
-        if (this.email_verification_code) this.email_verification_code= await bcrypt.hash(this.email_verification_code as string, 6);
+        if (this.email_verification_code) this.email_verification_code = await bcrypt.hash(this.email_verification_code as string, 6);
         if (this.phone_number_verification_code) this.phone_number_verification_code = await bcrypt.hash(this.phone_number_verification_code as string, 6);
     }
 }

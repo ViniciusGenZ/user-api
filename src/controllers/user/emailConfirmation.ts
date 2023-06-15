@@ -21,6 +21,8 @@ export const verifyEmail = async (
             return formatResponse(res, 404, "Verification code expired")
         }
 
+        console.log(body.email_verification_code, user?.email_verification_code)
+
         if (!(await bcrypt.compare(`${body.email_verification_code}`, user?.email_verification_code as string))) {
             return formatResponse(res, 401, "Code do not match");
         }
