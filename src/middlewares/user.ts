@@ -1,8 +1,7 @@
 
 import { NextFunction, Request, Response } from 'express';
-
-import { Err } from '../errors/customError';
 import tokenService from '@services/token';
+import defaultErrorTreatment from '@errors/defaultErrorTreatment';
 
 export const authUserMiddleware = (
   req: Request,
@@ -10,6 +9,8 @@ export const authUserMiddleware = (
   next: NextFunction,
 ): void | Response => {
   try {
+    if (process.env.validate_twofa == "false") return next();
+
     const { authorization } = req.headers;
     const decodedToken = tokenService.validateUserToken({
       token: authorization as string,
@@ -17,23 +18,9 @@ export const authUserMiddleware = (
 
     req.decodedUserJwt = decodedToken;
     return next();
-
-  } catch (err) {
-
-    console.log("error in user jwt decode")
-    console.log(err)
     
-    if (Err.isErr(err)) {
-      const er = err as Err;
-      return res.status(er.code).json({
-        success: false,
-        message: er.message,
-        data: er.body,
-      });
-    }
-    return res.status(401).json({
-      success: false,
-      message: 'Error to decode jwt',
-    });
+  } catch (err) {
+    console.log(err)
+    return defaultErrorTreatment(res, err);
   }
 };
