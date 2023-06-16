@@ -9,7 +9,7 @@ export const create = async (
   res: Response,
 ) => {
   try {
-    const { user_id } = req.decocedJwt;
+    const { user_id } = req.decodedUserJwt;
     const newRole = await roleService.create({ ...req.body, created_at: user_id, updated_at: user_id })
 
     return formatResponse(res, 200, 'OK', newRole);

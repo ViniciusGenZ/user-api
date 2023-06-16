@@ -7,10 +7,10 @@ import {
   } from "typeorm";
 import { Permission } from "./Permission";
   
-  @Entity("modules")
+  @Entity("modules_sys")
   export class Module extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id_module: number;
+    id_modules_sys: number;
 
     @OneToMany(() => Permission, (permission) => permission.module)
     permissions: Permission[]

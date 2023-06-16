@@ -64,12 +64,12 @@ async function sendPasswordChangeNotification(to: IMailTo, ip: string, userAgent
     });
 }
 
-async function sendMailConfirmation(to: IMailTo, link: string) {
+async function sendMailConfirmation(to: IMailTo, code: string) {
     return client.sendMail({
         from,
         to,
         subject: `Confirmación de Email`,
-        html: `¡Se solicitó la creación de una cuenta en Exo Systems para este correo electrónico,
-            para confirmar, haga clic en el enlace a continuación! ${link}`,
+        html: `¡Se solicitó la creación de una cuenta en Exo Sys para este correo electrónico,
+            para confirmar, ponga el código ${code} en la página de confirmación de correio, válido por una hora`,
     });
 }

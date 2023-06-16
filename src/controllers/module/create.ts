@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const { user_id } = req.decocedJwt;
+    const { user_id } = req.decodedUserJwt;
     const created = await moduleService.create({
       ...req.body,
       created_by: user_id,

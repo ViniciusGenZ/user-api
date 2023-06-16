@@ -13,6 +13,9 @@ declare global {
       AWS_SECRET_ACCESS_KEY: string;
       SES_EMAIL: string;
       SES_NAME: string;
+      validate_ip: boolean;
+      validate_twofa: boolean;
+      validate_session: boolean;
     }
   }
 }

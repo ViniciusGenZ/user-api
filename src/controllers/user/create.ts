@@ -1,15 +1,31 @@
+import mailService from "@services/mail";
+import optService from "@services/otp";
 import userService from "@services/user";
 import { formatResponse } from "@utils/formatResponse";
 import { Request, Response } from "express";
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const { user_id } = req.decocedJwt;
+    const { user_id } = req.decodedUserJwt || 0;
+
+    const code_expiration = new Date();
+    code_expiration.setHours(code_expiration.getHours() + 1);
+    const phone_number_verification_code = optService.generateOTP();
+    const email_verification_code = optService.generateOTP();
+
     const newUser = await userService.create({
       ...req.body,
       created_by: user_id,
       updated_by: user_id,
+      email_verification_code,
+      email_verification_code_expiration: code_expiration,
+      phone_number_verification_code,
+      phone_number_verification_code_expiration: code_expiration,
     });
+
+    await mailService.sendMailConfirmation({address: newUser.email, name: newUser.name}, email_verification_code)
+    //add send phone number verification
+
     return formatResponse(res, 200, "OK", newUser);
   } catch (err) {
     console.log(err)

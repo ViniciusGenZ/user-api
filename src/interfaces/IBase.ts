@@ -9,8 +9,8 @@ export interface IBase {
 }
 
 export interface IListRequest<T> {
-  offset?: number;
-  limit?: number;
+  offset: number;
+  limit: number;
   deleted?: boolean;
   filter: T;
 }
@@ -29,3 +29,5 @@ export interface IUpdateManyResponse<T> {
   count: number;
   rows: T[];
 }
+
+export type DeepNullable<T> = { [K in keyof T]: DeepNullable<T[K]> | null; };

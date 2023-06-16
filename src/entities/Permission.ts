@@ -5,11 +5,11 @@ import {
     PrimaryGeneratedColumn,
     ManyToOne,
     JoinColumn,
-    ManyToMany,
+    OneToMany,
   } from "typeorm";
   import { Base } from "./Base";
-import { Module } from "./Modules";
-import { Role } from "./Role";
+import { Module } from "./Module";
+import { PermissionsHasRole } from "./PermissionsHasRole";
   
   @Entity("permissions")
   export class Permission extends Base {
@@ -20,7 +20,7 @@ import { Role } from "./Role";
     url_access: string;
 
     @ManyToOne(() => Module, (module) => module.permissions)
-    @JoinColumn({ name: "permission_has_modules", referencedColumnName: "module_id_module" })
+    @JoinColumn({ name: "modules_sys_id_modules_sys", referencedColumnName: "id_modules_sys" })
     module: Module;
 
     @Column({
@@ -29,7 +29,7 @@ import { Role } from "./Role";
     })
     method: IHttpMethodsEnum;
 
-    @ManyToMany(() => Role, (role) => role.permissions)
-    role: Role[]
+    @OneToMany(() => PermissionsHasRole, (phr) => phr.permission)
+    permissionsHasRoles: PermissionsHasRole[]
   }
   

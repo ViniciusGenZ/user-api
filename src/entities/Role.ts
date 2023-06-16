@@ -1,12 +1,11 @@
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Base } from "./Base";
-import { Permission } from "./Permission";
+import { PermissionsHasRole } from "./PermissionsHasRole";
 
 @Entity("roles")
 export class Role extends Base {
@@ -22,16 +21,6 @@ export class Role extends Base {
   @Column()
   name_br: string
 
-  @ManyToMany(() => Permission)
-  @JoinTable({
-    name: "permissions_has_role", joinColumn: {
-      name: "roles_id_role",
-      referencedColumnName: "id_role"
-    },
-    inverseJoinColumn: {
-      name: "permissions_id_permission",
-      referencedColumnName: "id_permission"
-    }
-  })
-  permissions: Permission[]
+  @OneToMany(() => PermissionsHasRole, (phr) => phr.role)
+  permissionsHasRoles: PermissionsHasRole[]
 }

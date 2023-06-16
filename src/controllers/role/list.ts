@@ -11,8 +11,8 @@ export const list = async (
   try {
     const { filter } = req.body
 
-    const limit = Number(req.body.limit) ?? 10
-    const offset = Number(req.body.page ?? 0) * limit
+    const limit = Number(req.body.limit ?? 10);
+    const offset = Number(req.body.page ?? 0) * limit;
 
     const roles = await roleService.list({ limit, offset, filter })
     return formatResponse(res, 200, "OK", roles);

@@ -1,6 +1,6 @@
 import { Role } from "@entities/Role";
 import { IRoleCreateRequest, IRoleCreateResponse, IRoleDeleteRequest, IRoleDeleteResponse, IRoleListRequest, IRoleListResponse, IRoleReadRequest, IRoleUpdateRequest, IRoleUpdateResponse } from "@interfaces/IRole";
-import { appDataSource } from "data-source";
+import { appDataSource } from "../data-source";
 
 const repository = appDataSource.getRepository(Role);
 
@@ -36,9 +36,6 @@ async function read({ id_role }: IRoleReadRequest) {
       id_role,
       status_active: true,
     },
-    relations: {
-      permissions: true
-    }
   });
 }
 
@@ -47,9 +44,6 @@ async function list(input: IRoleListRequest): Promise<IRoleListResponse> {
     skip: input.offset,
     take: input.limit,
     where: input.filter,
-    relations: {
-      permissions: true
-    }
   });
 
   return { count, rows };

@@ -9,7 +9,7 @@ export const update = async (
     res: Response,
 ) => {
     try {
-        const { user_id } = req.decocedJwt
+        const { user_id } = req.decodedUserJwt
         const { id } = req.params
         const updatedRole = await roleService.update(Number(id), { ...req.body, updated_by: user_id })
         return formatResponse(res, 200, 'OK', updatedRole);

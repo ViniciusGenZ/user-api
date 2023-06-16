@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { authMiddleware } from '@middlewares/jwt';
+import { authUserMiddleware } from '@middlewares/user';
 import { sessionMiddleware } from '@middlewares/session';
 import { create } from '@controllers/module/create';
 import { read } from '@controllers/module/read';
@@ -10,13 +10,13 @@ import { list } from '@controllers/module/list';
 
 const moduleRouter = Router();
 
-moduleRouter.use(authMiddleware);
+moduleRouter.use(authUserMiddleware);
 moduleRouter.use(sessionMiddleware);
 
-moduleRouter.get('/:id', read);
 moduleRouter.post('/', create);
-moduleRouter.post('/list', list);
+moduleRouter.get('/:id', read);
 moduleRouter.put('/:id', update);
-moduleRouter.delete('/:id', del)
+moduleRouter.delete('/:id', del);
+moduleRouter.post('/list', list);
 
 export default moduleRouter;

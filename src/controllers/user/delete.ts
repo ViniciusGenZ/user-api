@@ -9,13 +9,10 @@ export const del = async (
     res: Response,
 ) => {
     try {
-        const { user_id } = req.decocedJwt
+        const { user_id } = req.decodedUserJwt
         const deleted = await userService.del({
             id_user: Number(req.params.id),
-            updated_by: user_id,
-            updated_at: new Date(),
-            deleted_by: user_id,
-            deleted_at: new Date(),
+            by: user_id
         })
         return formatResponse(res, 200, 'OK', deleted);
     } catch (err) {

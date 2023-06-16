@@ -6,7 +6,7 @@ import sessionService from "@services/userSession";
 
 export const logout = async (req: Request, res: Response) => {
   try {
-    const { user_id, id_session } = req.decocedJwt;
+    const { user_id, id_session } = req.decodedUserJwt;
     await sessionService.update({
       filter: {
         users_id_user: user_id,

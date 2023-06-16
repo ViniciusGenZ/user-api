@@ -7,13 +7,13 @@ appDataSource
   .initialize()
   .then(async () => {
     try {
-      app.listen(process.env.PORT);
-      console.log(`Server listening on port ${process.env.PORT}`);
+      app.listen(process.env.SERVER_PORT);
+      console.log(`Server listening on port ${process.env.SERVER_PORT}`);
     } catch (error) {
       console.log(error);
     }
   })
-  .catch((error) => {
+  .catch((error: unknown) => {
     console.log({
       host: process.env.DATABASE_URL,
       port: Number(process.env.DATABASE_PORT),

@@ -12,8 +12,8 @@ import lodash from "lodash";
 export const twoFA = async (req: Request, res: Response) => {
   try {
     const now = new Date()
-    const { body, decocedJwt } = req;
-    const { user_id, id_session, email, name } = decocedJwt;
+    const { body, decodedUserJwt } = req;
+    const { user_id, id_session, email, name } = decodedUserJwt;
 
     const session = await sessionService.read({
       id_user_session: id_session as number,
@@ -26,7 +26,7 @@ export const twoFA = async (req: Request, res: Response) => {
       return formatResponse(res, 401, "Code do not match");
     }
 
-    const user = await userService.read({ id_user: user_id }) as IUser
+    const user = await userService.read({ id_user: user_id }, true) as IUser
     const userInResp: Partial<IUser> = lodash.cloneDeep(user)
     delete userInResp.user_sessions
     delete userInResp.password
