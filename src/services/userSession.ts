@@ -5,7 +5,7 @@ import {
   IUserSessionCreateResponse,
   IUserSessionReadRequest,
 } from "@interfaces/IUserSession";
-import { appDataSource } from "data-source";
+import { appDataSource } from "../data-source";
 
 const repository = appDataSource.getRepository(UserSession);
 const sessionService = {

@@ -1,6 +1,6 @@
 import { Role } from "@entities/Role";
 import { IRoleCreateRequest, IRoleCreateResponse, IRoleDeleteRequest, IRoleDeleteResponse, IRoleListRequest, IRoleListResponse, IRoleReadRequest, IRoleUpdateRequest, IRoleUpdateResponse } from "@interfaces/IRole";
-import { appDataSource } from "data-source";
+import { appDataSource } from "../data-source";
 
 const repository = appDataSource.getRepository(Role);
 

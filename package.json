@@ -5,8 +5,8 @@
    "main": "src/index.ts",
    "scripts": {
       "dev": "ts-node-dev --poll --respawn --files -r tsconfig-paths/register src/index.ts",
-      "build": "rimraf ./dist && tsc",
-      "start": "ts-node src/index.ts",
+      "start": "node dist/src",
+      "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s . -o ./dist",
       "lint": "eslint . --ext .ts",
       "lintfix": "eslint . --ext .ts --fix",
       "typeorm": "typeorm-ts-node-commonjs",
@@ -59,6 +59,7 @@
       "nodemailer": "^6.9.2",
       "otp-generator": "^4.0.1",
       "reflect-metadata": "^0.1.13",
+      "tscpaths": "^0.0.9",
       "typeorm": "0.3.15",
       "uuid": "^9.0.0"
    }

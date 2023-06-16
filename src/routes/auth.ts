@@ -1,6 +1,6 @@
 import {Router} from 'express';
 
-import {authMiddleware} from '@middlewares/jwt';
+import {authUserMiddleware} from '@middlewares/user';
 import {login} from '@controllers/auth/login';
 import { loginValidation } from '@validations/login';
 import { logout } from '@controllers/auth/logout';
@@ -13,7 +13,7 @@ const authRouter = Router();
 authRouter.post('/login', loginValidation, login);
 authRouter.post('/forceLogout', forceLogout);
 
-authRouter.use(authMiddleware);
+authRouter.use(authUserMiddleware);
 authRouter.use(sessionMiddleware);
 
 authRouter.get('/logout', logout);

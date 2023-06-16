@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { authMiddleware } from '@middlewares/jwt';
+import { authUserMiddleware } from '@middlewares/user';
 import { sessionMiddleware } from '@middlewares/session';
 import { create } from '@controllers/permission/create';
 import { read } from '@controllers/permission/read';
@@ -10,7 +10,7 @@ import { list } from '@controllers/permission/list';
 
 const permissionRouter = Router();
 
-permissionRouter.use(authMiddleware);
+permissionRouter.use(authUserMiddleware);
 permissionRouter.use(sessionMiddleware);
 
 permissionRouter.post('/', create);

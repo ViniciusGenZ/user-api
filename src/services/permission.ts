@@ -1,4 +1,4 @@
-import { appDataSource } from "data-source";
+import { appDataSource } from "../data-source";
 import { IPermissionCreateRequest, IPermissionCreateResponse, IPermissionDeleteRequest, IPermissionListRequest, IPermissionListResponse, IPermissionReadRequest, IPermissionUpdateRequest } from "@interfaces/IPermission";
 import { Permission } from "@entities/Permission";
 

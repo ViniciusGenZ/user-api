@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { authMiddleware } from '@middlewares/jwt';
+import { authUserMiddleware } from '@middlewares/user';
 import { sessionMiddleware } from '@middlewares/session';
 import { create } from '@controllers/role/create';
 import { read } from '@controllers/role/read';
@@ -10,7 +10,7 @@ import { list } from '@controllers/role/list';
 
 const roleRouter = Router();
 
-roleRouter.use(authMiddleware);
+roleRouter.use(authUserMiddleware);
 roleRouter.use(sessionMiddleware);
 
 roleRouter.post('/', create);

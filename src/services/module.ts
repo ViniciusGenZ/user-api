@@ -1,4 +1,4 @@
-import { appDataSource } from "data-source";
+import { appDataSource } from "../data-source";
 import { Module } from "@entities/Module";
 import { IModuleCreateRequest, IModuleCreateResponse, IModuleDeleteRequest, IModuleListRequest, IModuleListResponse, IModuleReadRequest, IModuleUpdateRequest } from "@interfaces/IModule";
 

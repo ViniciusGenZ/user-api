@@ -11,7 +11,7 @@ import {
   IUserUpdateRequest,
   IUserUpdateResponse,
 } from "@interfaces/IUser";
-import { appDataSource } from "data-source";
+import { appDataSource } from "../data-source";
 import bcrypt from "bcryptjs";
 import { UserSession } from "@entities/UserSession";
 

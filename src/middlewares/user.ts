@@ -14,7 +14,7 @@ export const authUserMiddleware = (
     const decodedToken = tokenService.validateUserToken({
       token: authorization as string,
     });
-    console.log("aqui")
+
     req.decodedUserJwt = decodedToken;
     return next();
 
