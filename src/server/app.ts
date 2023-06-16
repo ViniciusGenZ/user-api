@@ -12,6 +12,7 @@ import userRouter from '@routes/user';
 import moduleRouter from '@routes/module';
 import permissionRouter from '@routes/permission';
 import roleRouter from '@routes/role';
+import sessionRouter from '@routes/session';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/user', userRouter);
 app.use('/module', moduleRouter);
 app.use('/permission', permissionRouter);
 app.use('/role', roleRouter);
+app.use('/session', sessionRouter);
 
 app.use(fileUpload({
   useTempFiles: true,
