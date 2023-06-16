@@ -1,25 +1,28 @@
 
-import {NextFunction, Request, Response} from 'express';
+import { NextFunction, Request, Response } from 'express';
 
-import {Err} from '../errors/customError';
+import { Err } from '../errors/customError';
 import tokenService from '@services/token';
 
-export const authMiddleware = (
+export const authUserMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction,
 ): void | Response => {
   try {
-    const {authorization} = req.headers;
-    const decodedJwtData = tokenService.validateToken({
+    const { authorization } = req.headers;
+    const decodedToken = tokenService.validateUserToken({
       token: authorization as string,
     });
-
-    req.decocedJwt = decodedJwtData;
+    console.log("aqui")
+    req.decodedUserJwt = decodedToken;
     return next();
+
   } catch (err) {
-    console.log("error in jwt decode")
+
+    console.log("error in user jwt decode")
     console.log(err)
+    
     if (Err.isErr(err)) {
       const er = err as Err;
       return res.status(er.code).json({

@@ -12,8 +12,8 @@ import lodash from "lodash";
 export const twoFA = async (req: Request, res: Response) => {
   try {
     const now = new Date()
-    const { body, decocedJwt } = req;
-    const { user_id, id_session, email, name } = decocedJwt;
+    const { body, decodedUserJwt } = req;
+    const { user_id, id_session, email, name } = decodedUserJwt;
 
     const session = await sessionService.read({
       id_user_session: id_session as number,

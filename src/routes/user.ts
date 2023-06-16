@@ -1,6 +1,5 @@
 import { Router } from "express";
 
-import { authMiddleware } from "@middlewares/jwt";
 import { create } from "@controllers/user/create";
 import { userCreateValidation } from "@validations/create";
 import { read } from "@controllers/user/read";
@@ -10,12 +9,11 @@ import { update } from "@controllers/user/update";
 import { del } from "@controllers/role/delete";
 import { verifyEmail } from "@controllers/user/emailConfirmation";
 import { generateNewEmailConfirmationCode } from "@controllers/user/generateNewEmailConfirmationCode";
+import { authUserMiddleware } from "@middlewares/user";
 
 const userRouter = Router();
 
-
-
-userRouter.use(authMiddleware);
+userRouter.use(authUserMiddleware);
 userRouter.use(sessionMiddleware);
 
 // eslint-disable-next-line no-useless-escape

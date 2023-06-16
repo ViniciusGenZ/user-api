@@ -12,7 +12,7 @@ export const verifyEmail = async (
     try {
         const now = new Date();
 
-        const { user_id } = req.decocedJwt
+        const { user_id } = req.decodedUserJwt
         const { body } = req;
         
         const user = await userService.read({ id_user: user_id }, true)

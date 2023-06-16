@@ -11,10 +11,10 @@ export const sessionMiddleware = async (
     next: NextFunction,
 ): Promise<void | Response> => {
     try {
-        const { decocedJwt, ip, useragent } = req;
-        if (decocedJwt.ip != ip || (useragent?.source && decocedJwt.userAgent != useragent.source)) throw new Err(401, 'Invalid session')
+        const { decodedUserJwt, ip, useragent } = req;
+        if (decodedUserJwt.ip != ip || (useragent?.source && decodedUserJwt.userAgent != useragent.source)) throw new Err(401, 'Invalid session')
 
-        const session = await sessionService.read({id_user_session: decocedJwt.id_session as number})
+        const session = await sessionService.read({id_user_session: decodedUserJwt.id_session as number})
         if(!session)throw new Err(401, 'Invalid session')
         return next();
     } catch (err) {

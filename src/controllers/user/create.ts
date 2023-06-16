@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const { user_id } = req.decocedJwt || 0;
+    const { user_id } = req.decodedUserJwt || 0;
 
     const code_expiration = new Date();
     code_expiration.setHours(code_expiration.getHours() + 1);

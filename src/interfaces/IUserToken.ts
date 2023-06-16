@@ -1,16 +1,16 @@
-export interface ITokenData {
+export interface IUserToken {
     exp: number;
     user_id: number;
-    id_session?: number;
-    authorized?: boolean;
     email: string;
     name: string;
     ip: string;
     userAgent: string;
+    authorized: boolean;
+    id_session: number;
 }
 
 export interface IValidateTokenRequest {
     token: string;
 }
 
-export type IValidateTokenResponse = ITokenData
+export type IValidateTokenResponse = IUserToken

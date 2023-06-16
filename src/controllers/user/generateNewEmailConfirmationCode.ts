@@ -13,7 +13,7 @@ export const generateNewEmailConfirmationCode = async (
     try {
         const code_expiration = new Date();
         code_expiration.setHours(code_expiration.getHours() + 1);
-        const { user_id } = req.decocedJwt
+        const { user_id } = req.decodedUserJwt
         const user = await userService.read({ id_user: user_id }, true)
         
         if(user?.email_verified) return formatResponse(res, 404, "User email already verified")

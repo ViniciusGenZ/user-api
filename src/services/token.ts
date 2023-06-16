@@ -1,16 +1,16 @@
 import { Err } from "@errors/customError";
-import { ITokenData, IValidateTokenRequest } from "@interfaces/IToken";
+import { IUserToken, IValidateTokenRequest } from "@interfaces/IUserToken";
 import jwt from "jsonwebtoken";
 
 const tokenService = {
   createToken,
   generateRespToken,
-  validateToken
+  validateUserToken
 };
 
 export default tokenService;
 
-function createToken(data: ITokenData): string {
+function createToken(data: IUserToken): string {
   const access_token = jwt.sign(data, process.env.jwtSecret as string);
   return access_token;
 }
@@ -48,9 +48,9 @@ function generateRespToken(
   }
 }
 
-function validateToken(
+function validateUserToken(
   data: IValidateTokenRequest,
-): ITokenData {
+): IUserToken {
   const {token} = data;
   if (!token) {
     throw new Err(401, 'Authorization not found');
@@ -66,5 +66,5 @@ function validateToken(
     throw new Err(401, 'Authorization invalid');
   }
 
-  return decoded as ITokenData;
+  return decoded as IUserToken;
 }

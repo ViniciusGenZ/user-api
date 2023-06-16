@@ -9,7 +9,7 @@ export const del = async (
     res: Response,
 ) => {
     try {
-        const { user_id } = req.decocedJwt
+        const { user_id } = req.decodedUserJwt
         const deleted = await userService.del({
             id_user: Number(req.params.id),
             by: user_id
