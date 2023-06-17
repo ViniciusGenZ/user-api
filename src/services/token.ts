@@ -51,20 +51,21 @@ function generateRespToken(
 function validateUserToken(
   data: IValidateTokenRequest,
 ): IUserToken {
-  const {token} = data;
-  if (!token) {
-    throw new Err(401, 'Authorization not found');
+  try {
+    const { token } = data;
+    if (!token) throw new Err(401, 'Authorization not found');
+  
+    const auth = token.split(' ');
+    if (auth[0] !== 'Bearer' || auth[1] === '' || !auth[1]) throw new Err(401, 'Malformed authorization header');
+  
+    const decoded = jwt.verify(auth[1], process.env.jwtSecret as string);
+    if (!decoded) throw new Err(401, 'Authorization invalid');
+  
+    return decoded as IUserToken;
   }
+  catch (err) {
 
-  const auth = token.split(' ');
-  if (auth[0] !== 'Bearer' || auth[1] === '' || !auth[1]) {
-    throw new Err(401, 'Malformed authorization header');
+    if(Err.isErr(err)) throw err
+    throw new Err(401, 'Error to validate token')
   }
-
-  const decoded = jwt.verify(auth[1], process.env.jwtSecret as string);
-  if (!decoded) {
-    throw new Err(401, 'Authorization invalid');
-  }
-
-  return decoded as IUserToken;
 }

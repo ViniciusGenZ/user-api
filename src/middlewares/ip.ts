@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { Err } from '../errors/customError';
 
-export const sessionMiddleware = async (
+export const ipMiddleware = async (
     req: Request,
     res: Response,
     next: NextFunction,
