@@ -1,4 +1,3 @@
-import { SessionType } from "@entities/SessionType"
 import { User } from "@entities/User"
 import { UserSession } from "@entities/UserSession"
 import "reflect-metadata"
@@ -8,6 +7,7 @@ import { Permission } from "@entities/Permission"
 import { Role } from "@entities/Role"
 import { Module } from "@entities/Module"
 import { PermissionsHasRole } from "@entities/PermissionsHasRole"
+import { SessionType } from "@entities/SessionType"
 
 dotenv.config()
 

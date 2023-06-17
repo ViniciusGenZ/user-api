@@ -4,8 +4,8 @@
    "description": "",
    "main": "src/index.ts",
    "scripts": {
-      "dev": "ts-node-dev --poll --respawn --files -r tsconfig-paths/register src/index.ts",
-      "start": "node dist/src",
+      "dev": "ts-node-dev --poll --respawn --files -r tsconfig-paths/register index.ts",
+      "start": "node dist",
       "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s . -o ./dist",
       "lint": "eslint . --ext .ts",
       "lintfix": "eslint . --ext .ts --fix",
