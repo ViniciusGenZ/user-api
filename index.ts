@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import { appDataSource } from "./data-source";
+import { appDataSource } from "./src/data-source";
 import "reflect-metadata";
-import app from "../src/server/app";
+import app from "./src/server/app";
 
 appDataSource
   .initialize()
