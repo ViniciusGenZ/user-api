@@ -16,15 +16,13 @@ export const twoFA = async (req: Request, res: Response) => {
     const { user_id, id_session, email, name } = decodedUserJwt;
 
     const session = await sessionService.read({
-      id_user_session: id_session as number,
+      id_user_session: id_session,
     });
 
     if (!session) return formatResponse(res, 404, "Session not found");
     if (session.code_verified) return formatResponse(res, 200, "Session always authorized!");
 
-    if (!(await bcrypt.compare(`${body.code}`, session?.code as string))) {
-      return formatResponse(res, 401, "Code do not match");
-    }
+    if (!(await bcrypt.compare(body.code, session.code))) return formatResponse(res, 400, "Code do not match");
 
     const user = await userService.read({ id_user: user_id }, true) as IUser
     const userInResp: Partial<IUser> = lodash.cloneDeep(user)

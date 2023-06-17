@@ -24,7 +24,7 @@ async function create(
 }
 
 async function update({ filter, values }: IUserSessionUpdateManyRequest) {
-  return repository.update(filter, values);
+  return repository.update(filter, repository.create(values));
 }
 
 async function read({id_user_session}: IUserSessionReadRequest) {

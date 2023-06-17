@@ -140,7 +140,9 @@ async function update(id_user: number, input: IUserUpdateRequest): Promise<IUser
 }
 
 async function del({ id_user, by }: IUserDeleteRequest) {
-  return (await repository.update({ id_user }, { status_active: false, updated_at: new Date(), deleted_at: new Date(), updated_by: by, deleted_by: by })).raw[0];
+  console.log(id_user, by);
+  const user = repository.create({ status_active: false, deleted_at: new Date(), updated_by: by, deleted_by: by })
+  return (await repository.update({ id_user }, user)).raw[0];
 }
 
 async function authenticate({
@@ -159,6 +161,7 @@ async function authenticate({
     const sessions = await sessionsRepository.find({
       where: {
         status_active: true,
+        users_id_user: user.id_user
       },
       order: {
         id_user_session: "DESC",
@@ -174,10 +177,10 @@ async function authenticate({
       {
         id_user: user.id_user,
       },
-      {
+      repository.create({
         login_attempts: 0,
         banned: false,
-      }
+      })
     );
 
     return user;

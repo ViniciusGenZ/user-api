@@ -7,6 +7,7 @@ import { logout } from '@controllers/auth/logout';
 import { forceLogout } from '@controllers/auth/forceLogout';
 import { twoFA } from '@controllers/auth/twoFA';
 import { sessionMiddleware } from '@middlewares/session';
+import { ipMiddleware } from '@middlewares/ip';
 
 const authRouter = Router();
 
@@ -14,6 +15,7 @@ authRouter.post('/login', loginValidation, login);
 authRouter.post('/forceLogout', forceLogout);
 
 authRouter.use(authUserMiddleware);
+authRouter.use(ipMiddleware);
 authRouter.use(sessionMiddleware);
 
 authRouter.get('/logout', logout);

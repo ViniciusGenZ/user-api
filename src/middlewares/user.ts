@@ -9,8 +9,6 @@ export const authUserMiddleware = (
   next: NextFunction,
 ): void | Response => {
   try {
-    if (process.env.validate_twofa == "false") return next();
-
     const { authorization } = req.headers;
     const decodedToken = tokenService.validateUserToken({
       token: authorization as string,
@@ -18,7 +16,7 @@ export const authUserMiddleware = (
 
     req.decodedUserJwt = decodedToken;
     return next();
-    
+
   } catch (err) {
     console.log(err)
     return defaultErrorTreatment(res, err);

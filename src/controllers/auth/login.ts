@@ -7,7 +7,6 @@ import sessionService from "@services/userSession";
 import tokenService from "@services/token";
 import otpGenerator from "otp-generator";
 import { IUserSession } from "@interfaces/IUserSession";
-import bcrypt from "bcryptjs";
 import mailService from "@services/mail";
 import { IUser } from "@interfaces/IUser";
 import lodash from "lodash";
@@ -24,11 +23,11 @@ const updateSessionWithTwoFaCode = async (session: IUserSession) => {
     upperCaseAlphabets: false,
   });
 
-  const code = await bcrypt.hash(otp, 6);
+  const code = otp;
 
   await sessionService.update({
     filter: {
-      id_user_session: session?.id_user_session,
+      id_user_session: session.id_user_session,
     },
     values: {
       code,
@@ -70,7 +69,7 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await userService.authenticate(body);
     if (!user) throw new Err(404, "User not found")
-
+    console.log(user);
     if (user.user_sessions.length > 0 || user.allow_multiple_sessions) {
       const session = user.user_sessions.find(
         (item) => item.user_agent === useragent?.source && item.ip === ip
