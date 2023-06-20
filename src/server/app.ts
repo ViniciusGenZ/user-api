@@ -21,6 +21,7 @@ app.use(cors({origin: "*"}));
 app.use(userAgent.express());
 app.use(express.json());
 
+app.use('/', healthRouter);
 app.use('/api/', healthRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
