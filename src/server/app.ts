@@ -22,12 +22,13 @@ app.use(userAgent.express());
 app.use(express.json());
 
 app.use('/', healthRouter);
-app.use('/auth', authRouter);
-app.use('/user', userRouter);
-app.use('/module', moduleRouter);
-app.use('/permission', permissionRouter);
-app.use('/role', roleRouter);
-app.use('/session', sessionRouter);
+app.use('/api/', healthRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
+app.use('/api/module', moduleRouter);
+app.use('/api/permission', permissionRouter);
+app.use('/api/role', roleRouter);
+app.use('/api/session', sessionRouter);
 
 app.use(fileUpload({
   useTempFiles: true,
