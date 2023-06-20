@@ -35,38 +35,38 @@
       "strict": true,
       "strictPropertyInitialization": false,
       "skipLibCheck": true,
-      "baseUrl": "src",
+      "baseUrl": ".",
       "paths": {
          "*": ["node_modules/*"],
          "@controllers/*": [
-            "controllers/*"
+            "src/controllers/*"
          ],
          "@entities/*": [
-            "entities/*"
+            "src/entities/*"
          ],
          "@errors/*": [
-            "errors/*"
+            "src/errors/*"
          ],
          "@interfaces/*": [
-            "interfaces/*"
+            "src/interfaces/*"
          ],
          "@middlewares/*": [
-            "middlewares/*"
+            "src/middlewares/*"
          ],
          "@reporsitories/*": [
-            "reporsitories/*"
+            "src/reporsitories/*"
          ],
          "@routes/*": [
-            "routes/*"
+            "src/routes/*"
          ],
          "@services/*": [
-            "services/*"
+            "src/services/*"
          ],
          "@utils/*": [
-            "utils/*"
+            "src/utils/*"
          ],
          "@validations/*": [
-            "validations/*"
+            "src/validations/*"
          ]
       },
       "typeRoots": [
