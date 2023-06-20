@@ -10,7 +10,8 @@
       "lint": "eslint . --ext .ts",
       "lintfix": "eslint . --ext .ts --fix",
       "typeorm": "typeorm-ts-node-commonjs",
-      "migrate": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run"
+      "migrate": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run",
+      "postbuild": "cp package.json dist/package.json && cd dist && npm install --only=production"
    },
    "keywords": [],
    "author": "",
