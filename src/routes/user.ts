@@ -15,6 +15,7 @@ import { twoFAMiddleware } from "@middlewares/twofa";
 
 const userRouter = Router();
 
+userRouter.post("/", userCreateValidation, create);
 userRouter.use(authUserMiddleware);
 userRouter.use(ipMiddleware);
 userRouter.use(sessionMiddleware);
@@ -29,8 +30,6 @@ userRouter.post("/list", list);
 
 userRouter.put('/:id', update);
 userRouter.delete('/:id', del);
-
-userRouter.post("/", userCreateValidation, create);
 
 
 
