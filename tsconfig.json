@@ -59,6 +59,9 @@
          "@routes/*": [
             "src/routes/*"
          ],
+         "@seeders/*": [
+            "src/seeders/*"
+         ],
          "@services/*": [
             "src/services/*"
          ],

@@ -7,34 +7,37 @@ import optService from '@services/otp';
 import mailService from '@services/mail';
 
 export const generateNewEmailConfirmationCode = async (
-    req: Request,
-    res: Response,
+	req: Request,
+	res: Response,
 ) => {
-    try {
-        const code_expiration = new Date();
-        code_expiration.setHours(code_expiration.getHours() + 1);
-        const { user_id } = req.decodedUserJwt
-        const user = await userService.read({ id_user: user_id }, true)
-        
-        if(user?.email_verified) return formatResponse(res, 404, "User email already verified")
+	try {
+		const code_expiration = new Date();
+		code_expiration.setHours(code_expiration.getHours() + 1);
+		const { user_id } = req.decodedUserJwt;
+		const user = await userService.read({ id_user: user_id }, true);
 
-        const email_verification_code = optService.generateOTP();
-        
-        const updated = await userService.update(
-            Number(user_id),
-            {
-                updated_by: user_id,
-                email_verification_code: email_verification_code,
-                email_verification_code_expiration: code_expiration,
-            }
-        )
+		if (user?.email_verified)
+			return formatResponse(res, 404, 'User email already verified');
 
-        await mailService.sendMailConfirmation({address: (user?.email as string), name: (user?.name as string)}, email_verification_code);
+		const email_verification_code = optService.generateOTP();
 
-        return formatResponse(res, 200, 'OK', updated);
-    } catch (err) {
-        console.log("error in generateNewEmailConfirmationCode in user controller ")
-        console.log(err)
-        return defaultErrorTreatment(res, err);
-    }
+		const updated = await userService.update(Number(user_id), {
+			updated_by: user_id,
+			email_verification_code: email_verification_code,
+			email_verification_code_expiration: code_expiration,
+		});
+
+		await mailService.sendMailConfirmation(
+			{ address: user?.email as string, name: user?.name as string },
+			email_verification_code,
+		);
+
+		return formatResponse(res, 200, 'OK', updated);
+	} catch (err) {
+		console.log(
+			'error in generateNewEmailConfirmationCode in user controller ',
+		);
+		console.log(err);
+		return defaultErrorTreatment(res, err);
+	}
 };
