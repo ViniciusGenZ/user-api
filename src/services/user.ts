@@ -14,6 +14,7 @@ import {
 import { appDataSource } from '../data-source';
 import bcrypt from 'bcryptjs';
 import { UserSession } from '@entities/UserSession';
+import { Err } from '@errors/customError';
 
 // TODO user delete should logout all sessions
 
@@ -224,6 +225,6 @@ async function authenticate({
 			values,
 		);
 
-		throw new Error('Password do not match');
+		throw new Err(401, 'Password do not match');
 	}
 }
