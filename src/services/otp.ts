@@ -1,16 +1,16 @@
-import otpGenerator from "otp-generator";
+import otpGenerator from 'otp-generator';
 
 const optService = {
-    generateOTP
-}
+	generateOTP,
+};
 
 export default optService;
 
 function generateOTP() {
-    return otpGenerator.generate(6, {
-    digits: true,
-    lowerCaseAlphabets: false,
-    specialChars: false,
-    upperCaseAlphabets: false,
-  });
+	return otpGenerator.generate(6, {
+		digits: true,
+		lowerCaseAlphabets: false,
+		specialChars: false,
+		upperCaseAlphabets: false,
+	});
 }

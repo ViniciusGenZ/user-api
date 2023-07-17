@@ -1,26 +1,32 @@
-import { Entity, CreateDateColumn, DeleteDateColumn, UpdateDateColumn, Column, BaseEntity } from "typeorm"
+import {
+	Entity,
+	CreateDateColumn,
+	DeleteDateColumn,
+	UpdateDateColumn,
+	Column,
+	BaseEntity,
+} from 'typeorm';
 
 @Entity()
-export class Base extends BaseEntity{
-    @CreateDateColumn()
-    created_at: Date;
+export class Base extends BaseEntity {
+	@CreateDateColumn()
+	created_at: Date;
 
-    @UpdateDateColumn()
-    updated_at: Date;
+	@UpdateDateColumn()
+	updated_at: Date;
 
-    @DeleteDateColumn()
-    deleted_at: Date; 
+	@DeleteDateColumn()
+	deleted_at: Date;
 
-    @Column({default: true})
-    status_active: boolean;
+	@Column({ default: true })
+	status_active: boolean;
 
-    @Column()
-    created_by: number;
+	@Column()
+	created_by: number;
 
-    @Column()
-    updated_by: number;
+	@Column()
+	updated_by: number;
 
-    @Column({nullable: true})
-    deleted_by: number;
-
+	@Column({ nullable: true })
+	deleted_by: number;
 }

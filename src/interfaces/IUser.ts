@@ -1,4 +1,5 @@
 import { IBase, IListRequest, IListResponse } from "./IBase";
+import { IRole } from "./IRole";
 import { IUserSession } from "./IUserSession";
 
 export interface IUser extends IBase {
@@ -22,6 +23,8 @@ export interface IUser extends IBase {
   email_verification_code_expiration: Date;
   phone_number_verification_code: string;
   phone_number_verification_code_expiration: Date;
+  roles_id_role: number;
+  role: IRole;
 }
 export type UserFilters = Partial<Omit<IUser, keyof IBase>>;
 

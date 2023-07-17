@@ -6,6 +6,7 @@ import {
 } from "typeorm";
 import { Base } from "./Base";
 import { PermissionsHasRole } from "./PermissionsHasRole";
+import { User } from "./User";
 
 @Entity("roles")
 export class Role extends Base {
@@ -22,5 +23,8 @@ export class Role extends Base {
   name_br: string
 
   @OneToMany(() => PermissionsHasRole, (phr) => phr.role)
-  permissionsHasRoles: PermissionsHasRole[]
+  permissionsHasRoles: Array<PermissionsHasRole>
+
+  @OneToMany(() => User, (u) => u.role)
+  users: Array<User>
 }
