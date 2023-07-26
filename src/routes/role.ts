@@ -20,7 +20,7 @@ roleRouter.use(twoFAMiddleware);
 roleRouter.post('/', create);
 roleRouter.get('/:id', read);
 roleRouter.put('/:id', update);
-roleRouter.delete('/:id', del)
+roleRouter.delete('/:id', del);
 roleRouter.post('/list', list);
 
 export default roleRouter;

@@ -2,7 +2,7 @@ import mailService from '@services/mail';
 import optService from '@services/otp';
 import roleService from '@services/role';
 import userService from '@services/user';
-import { formatResponse } from '@utils/formatResponse';
+import { formatResponse } from '@adapters/formatResponse';
 import { Request, Response } from 'express';
 
 export const create = async (req: Request, res: Response) => {

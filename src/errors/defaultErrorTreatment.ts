@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { formatResponse } from '@utils/formatResponse';
+import { formatResponse } from '@adapters/formatResponse';
 import { Err } from './customError';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

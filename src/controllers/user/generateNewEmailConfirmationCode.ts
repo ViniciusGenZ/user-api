@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { formatResponse } from '../../utils/formatResponse';
+import { formatResponse } from '../../adapters/formatResponse';
 import defaultErrorTreatment from '../../errors/defaultErrorTreatment';
 import userService from '@services/user';
 import optService from '@services/otp';
