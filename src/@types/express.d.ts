@@ -1,9 +1,9 @@
-import { IUserToken } from "@interfaces/IUserToken"
+import { IUserToken } from '@interfaces/IUserToken';
 
 declare global {
-  namespace Express {
-    export interface Request {
-      decodedUserJwt: IUserToken;
-    }
-  }
+	namespace Express {
+		export interface Request {
+			decodedUserJwt: IUserToken;
+		}
+	}
 }

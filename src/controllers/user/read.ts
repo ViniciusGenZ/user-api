@@ -1,5 +1,5 @@
 import userService from '@services/user';
-import { formatResponse } from '@utils/formatResponse';
+import { formatResponse } from '@adapters/formatResponse';
 import { Request, Response } from 'express';
 
 export const read = async (req: Request, res: Response) => {

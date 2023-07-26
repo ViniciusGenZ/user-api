@@ -1,33 +1,32 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
-    OneToMany,
-    BaseEntity,
-    Column,
-  } from "typeorm";
-import { Permission } from "./Permission";
-  
-  @Entity("modules_sys")
-  export class Module extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id_modules_sys: number;
+	Entity,
+	PrimaryGeneratedColumn,
+	OneToMany,
+	BaseEntity,
+	Column,
+} from 'typeorm';
+import { Permission } from './Permission';
 
-    @OneToMany(() => Permission, (permission) => permission.module)
-    permissions: Permission[]
+@Entity('modules_sys')
+export class Module extends BaseEntity {
+	@PrimaryGeneratedColumn()
+	id_modules_sys: number;
 
-    @Column()
-    name_py: string
+	@OneToMany(() => Permission, (permission) => permission.module)
+	permissions: Permission[];
 
-    @Column()
-    name_en: string
+	@Column()
+	name_py: string;
 
-    @Column()
-    name_br: string
+	@Column()
+	name_en: string;
 
-    @Column()
-    status_active: boolean
+	@Column()
+	name_br: string;
 
-    @Column()
-    maintenance: boolean
-  }
-  
+	@Column()
+	status_active: boolean;
+
+	@Column()
+	maintenance: boolean;
+}

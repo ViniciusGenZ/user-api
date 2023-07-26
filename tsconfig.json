@@ -38,6 +38,9 @@
       "baseUrl": ".",
       "paths": {
          "*": ["node_modules/*"],
+         "@adapters/*": [
+            "src/adapters/*"
+         ],
          "@controllers/*": [
             "src/controllers/*"
          ],
