@@ -2,13 +2,13 @@
 import { appDataSource } from './src/data-source';
 import 'reflect-metadata';
 import app from './src/server/app';
-import { seeder } from '@seeders/index';
+//import { seeder } from '@seeders/index';
 
 appDataSource
 	.initialize()
 	.then(async () => {
 		try {
-			await seeder();
+			//await seeder();
 			app.listen(process.env.SERVER_PORT);
 			console.log(`Server listening on port ${process.env.SERVER_PORT}`);
 		} catch (error) {
