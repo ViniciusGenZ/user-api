@@ -86,7 +86,7 @@ export const login = async (req: Request, res: Response) => {
 				return formatResponse(res, 200, 'OK', userReponse(user, session));
 			}
 		}
-		if (user.user_sessions.length > 0) {
+		if (user.user_sessions.length > 0 && process.env.validate_ip != 'false') {
 			const whereIsActive =
 				user.user_sessions.length == 1 ? user.user_sessions[0] : null;
 			throw new Err(401, `Already have an active session`, {
