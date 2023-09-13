@@ -2,18 +2,14 @@ import { Request, Response } from 'express';
 
 import { formatResponse } from '../../adapters/formatResponse';
 import defaultErrorTreatment from '../../errors/defaultErrorTreatment';
-import permissionService from '@services/permission';
+import userService from '@services/user';
 
-export const create = async (req: Request, res: Response) => {
+export const getRolePermissions = async (req: Request, res: Response) => {
 	try {
 		const { user_id } = req.decodedUserJwt;
-		const created = await permissionService.create({
-			...req.body,
-			created_by: user_id,
-			updated_by: user_id,
-		});
+		const rolePermissions = await userService.getUserRoleWithRelations(user_id);
 
-		return formatResponse(res, 200, 'OK', created);
+		return formatResponse(res, 200, 'OK', rolePermissions);
 	} catch (err) {
 		return defaultErrorTreatment(res, err);
 	}

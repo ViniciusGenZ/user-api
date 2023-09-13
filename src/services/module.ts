@@ -56,7 +56,6 @@ async function read({ id_modules_sys }: IModuleReadRequest) {
 }
 
 async function list(input: IModuleListRequest): Promise<IModuleListResponse> {
-	console.log(input);
 	const [rows, count] = await repository.findAndCount({
 		skip: input.offset,
 		take: input.limit,

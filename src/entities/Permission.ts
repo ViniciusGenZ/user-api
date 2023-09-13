@@ -17,10 +17,19 @@ export class Permission extends Base {
 	id_permission: number;
 
 	@Column()
-	url_access: string;
+	modules_sys_id_modules_sys: number;
 
 	@Column()
-	modules_sys_id_modules_sys: number;
+	maintenance: boolean;
+
+	@Column()
+	url_regex: string;
+
+	@Column({
+		type: 'enum',
+		enum: IHttpMethodsEnum,
+	})
+	method: IHttpMethodsEnum;
 
 	@ManyToOne(() => Module, (module) => module.permissions)
 	@JoinColumn({
@@ -28,12 +37,6 @@ export class Permission extends Base {
 		referencedColumnName: 'id_modules_sys',
 	})
 	module: Module;
-
-	@Column({
-		type: 'enum',
-		enum: IHttpMethodsEnum,
-	})
-	method: IHttpMethodsEnum;
 
 	@OneToMany(() => PermissionsHasRole, (phr) => phr.permission)
 	permissionsHasRoles: PermissionsHasRole[];

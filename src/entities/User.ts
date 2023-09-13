@@ -12,6 +12,8 @@ import { Base } from './Base';
 import { UserSession } from './UserSession';
 import bcrypt from 'bcryptjs';
 import { Role } from './Role';
+import { IUserCreateResponse } from '@interfaces/IUser';
+import { IAuthenticationResponse } from '@interfaces/IAuthentication';
 
 @Entity('users')
 export class User extends Base {
@@ -96,5 +98,33 @@ export class User extends Base {
 				this.phone_number_verification_code as string,
 				6,
 			);
+	}
+
+	getUserReponse(): IUserCreateResponse {
+		return {
+			id_user: this.id_user,
+			email: this.email,
+			name: this.name,
+			surname: this.surname,
+			document: this.document,
+			phone_number: this.phone_number,
+			whats: this.whats,
+			birthdate: this.birthdate,
+			email_verified: this.email_verified,
+			phone_number_verified: this.phone_number_verified,
+			status_active: this.status_active,
+			created_at: this.created_at,
+		};
+	}
+
+	loginReponse(
+		token: string,
+		userSession: UserSession,
+	): IAuthenticationResponse {
+		return {
+			token,
+			session: userSession,
+			user: this.getUserReponse(),
+		};
 	}
 }

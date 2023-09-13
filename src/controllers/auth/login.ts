@@ -5,60 +5,8 @@ import defaultErrorTreatment from '../../errors/defaultErrorTreatment';
 import userService from '@services/user';
 import sessionService from '@services/userSession';
 import tokenService from '@services/token';
-import otpGenerator from 'otp-generator';
-import { IUserSession } from '@interfaces/IUserSession';
 import mailService from '@services/mail';
-import { IUser } from '@interfaces/IUser';
-import lodash from 'lodash';
 import { Err } from '@errors/customError';
-
-const updateSessionWithTwoFaCode = async (session: IUserSession) => {
-	const code_expiration = new Date();
-	code_expiration.setHours(code_expiration.getHours() + 1);
-
-	const otp = otpGenerator.generate(6, {
-		digits: true,
-		lowerCaseAlphabets: false,
-		specialChars: false,
-		upperCaseAlphabets: false,
-	});
-
-	const code = otp;
-
-	await sessionService.update({
-		filter: {
-			id_user_session: session.id_user_session,
-		},
-		values: {
-			code,
-			code_expiration: code_expiration,
-		},
-	});
-	return otp;
-};
-
-const userReponse = (user: IUser, session: IUserSession) => {
-	const userInResp: Partial<IUser> = lodash.cloneDeep(user);
-	delete userInResp.user_sessions;
-	delete userInResp.password;
-	return {
-		token: tokenService.generateRespToken(
-			user.id_user,
-			session?.id_user_session as number,
-			session?.authorized as boolean,
-			user.email,
-			user.name,
-			session.ip,
-			session.user_agent,
-		).token,
-		session: {
-			id_user_session: session?.id_user_session,
-			authorized: session?.authorized,
-			expiration_date: session?.expiration_date,
-		},
-		user: userInResp,
-	};
-};
 
 export const login = async (req: Request, res: Response) => {
 	const { ip, useragent, body } = req;
@@ -74,7 +22,7 @@ export const login = async (req: Request, res: Response) => {
 			);
 			if (session) {
 				if (!session.authorized) {
-					const otp = await updateSessionWithTwoFaCode(session as IUserSession);
+					const otp = await sessionService.updateSessionWithTwoFaCode(session);
 					await mailService.sendOtp(
 						{
 							name: user.name,
@@ -83,7 +31,23 @@ export const login = async (req: Request, res: Response) => {
 						otp,
 					);
 				}
-				return formatResponse(res, 200, 'OK', userReponse(user, session));
+				return formatResponse(
+					res,
+					200,
+					'OK',
+					user.loginReponse(
+						tokenService.generateRespToken(
+							user.id_user,
+							session.id_user_session as number,
+							session.authorized as boolean,
+							user.email,
+							user.name,
+							session.ip,
+							session.user_agent,
+						).token,
+						session,
+					),
+				);
 			}
 		}
 		if (user.user_sessions.length > 0 && process.env.validate_ip != 'false') {
@@ -109,7 +73,7 @@ export const login = async (req: Request, res: Response) => {
 		});
 		user.user_sessions.push(session);
 
-		const otp = await updateSessionWithTwoFaCode(session);
+		const otp = await sessionService.updateSessionWithTwoFaCode(session);
 		await mailService.sendOtp(
 			{
 				name: user.name,
@@ -118,7 +82,23 @@ export const login = async (req: Request, res: Response) => {
 			otp,
 		);
 
-		return formatResponse(res, 200, 'OK', userReponse(user, session));
+		return formatResponse(
+			res,
+			200,
+			'OK',
+			user.loginReponse(
+				tokenService.generateRespToken(
+					user.id_user,
+					session.id_user_session as number,
+					session.authorized as boolean,
+					user.email,
+					user.name,
+					session.ip,
+					session.user_agent,
+				).token,
+				session,
+			),
+		);
 	} catch (err) {
 		console.log(err);
 		return defaultErrorTreatment(res, err);

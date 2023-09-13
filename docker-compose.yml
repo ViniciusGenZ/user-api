@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sandbox
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - local_network
+
+networks:
+  local_network:
+    driver: bridge
+
+volumes:
+  mysql:
+    driver: local
+    

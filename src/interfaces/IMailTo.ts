@@ -1,4 +1,4 @@
 export interface IMailTo {
-    name: string,
-    address: string
+	name: string;
+	address: string;
 }

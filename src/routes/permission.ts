@@ -20,7 +20,7 @@ permissionRouter.use(twoFAMiddleware);
 permissionRouter.post('/', create);
 permissionRouter.get('/:id', read);
 permissionRouter.put('/:id', update);
-permissionRouter.delete('/:id', del)
+permissionRouter.delete('/:id', del);
 permissionRouter.post('/list', list);
 
 export default permissionRouter;

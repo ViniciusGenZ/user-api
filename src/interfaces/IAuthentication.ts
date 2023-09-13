@@ -1,8 +1,16 @@
-import { IUser } from './IUser';
+import { IUserCreateResponse } from './IUser';
 
 export interface IAuthenticationRequest {
-  email: string;
-  password: string;
+	email: string;
+	password: string;
 }
 
-export type IAuthenticationResponse = IUser
+export interface IAuthenticationResponse {
+	token: string;
+	session: {
+		id_user_session: number;
+		authorized: boolean;
+		expiration_date: Date;
+	};
+	user: IUserCreateResponse;
+}

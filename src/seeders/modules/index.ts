@@ -10,5 +10,7 @@ export async function modulesSeeder() {
 	);
 
 	if (toBeCreated.length > 0)
-		await rep.save(toBeCreated.map((item) => rep.create(item)));
+		await rep.save(
+			toBeCreated.map((item) => rep.create({ ...item, status_active: true })),
+		);
 }

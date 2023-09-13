@@ -4,7 +4,7 @@ import { IModule } from './IModule';
 
 export interface IPermission extends IBase {
 	id_permission: number;
-	url_access: string;
+	url_regex: string;
 	status_active: boolean;
 	method: IHttpMethodsEnum;
 	modules_sys_id_modules_sys: number;

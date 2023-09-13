@@ -63,6 +63,7 @@ function validateUserToken(data: IValidateTokenRequest): IUserToken {
 		return decoded as IUserToken;
 	} catch (err) {
 		if (Err.isErr(err)) throw err;
+		console.log(err);
 		throw new Err(401, 'Error to validate token');
 	}
 }

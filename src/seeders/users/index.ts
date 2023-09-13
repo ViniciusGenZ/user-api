@@ -15,9 +15,9 @@ export async function userSeeder() {
 					email: item.email,
 				},
 			});
-			if (!user) toCreate.push(userService.repository.create(item));
+			if (!!!user) toCreate.push(userService.repository.create(item));
 		}),
 	);
-
+	console.log(toCreate);
 	if (toBeCreated.length > 0) await rep.save(toCreate);
 }
