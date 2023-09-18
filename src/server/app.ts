@@ -17,7 +17,7 @@ import sessionRouter from '@routes/session';
 const app = express();
 
 app.use(morgan('dev'));
-app.use(cors({ origin: '*' }));
+app.use(cors());
 app.use(userAgent.express());
 app.use(express.json());
 

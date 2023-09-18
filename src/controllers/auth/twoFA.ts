@@ -60,6 +60,7 @@ export const twoFA = async (req: Request, res: Response) => {
 				user.name,
 				session.ip,
 				session.user_agent,
+				user.roles_id_role,
 			).token,
 			session: {
 				id_user_session: session?.id_user_session,

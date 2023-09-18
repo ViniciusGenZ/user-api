@@ -23,6 +23,7 @@ function generateRespToken(
 	name: string,
 	ip: string,
 	userAgent: string,
+	role_id: number,
 ) {
 	try {
 		// 60 seconds * 60 minutes * 24 horas
@@ -37,6 +38,7 @@ function generateRespToken(
 			name,
 			ip,
 			userAgent,
+			role_id,
 		});
 
 		const resp = {
