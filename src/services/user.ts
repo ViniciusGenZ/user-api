@@ -70,6 +70,9 @@ async function list(
 			email_verification_code: all ? true : false,
 			phone_number_verification_code: all ? true : false,
 		},
+		relations: {
+			role: true,
+		},
 	});
 
 	return { count, rows };
