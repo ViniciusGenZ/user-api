@@ -11,5 +11,6 @@ export const userCreateValidation = celebrate({
 		whats: Joi.string(),
 		email: Joi.string().required().email(),
 		birthdate: Joi.date().required(),
+		roles_id_role: Joi.number().required(),
 	}),
 });
