@@ -70,6 +70,9 @@ async function list(
 			email_verification_code: all ? true : false,
 			phone_number_verification_code: all ? true : false,
 		},
+		relations: {
+			role: true,
+		},
 	});
 
 	return { count, rows };
@@ -88,10 +91,6 @@ async function read(
 	input: IUserReadRequest,
 	all?: boolean,
 ): Promise<IUserCreateResponse | null> {
-	console.log({
-		id_user: input.id_user,
-		status_active: true,
-	});
 	const user = await repository.findOne({
 		where: {
 			id_user: input.id_user,
@@ -125,6 +124,9 @@ async function read(
 			password: all ? true : false,
 			email_verification_code: all ? true : false,
 			phone_number_verification_code: all ? true : false,
+		},
+		relations: {
+			role: true,
 		},
 	});
 	if (!user) return null;
