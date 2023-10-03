@@ -17,8 +17,8 @@ roleRouter.use(sessionMiddleware);
 roleRouter.use(ipMiddleware);
 roleRouter.use(twoFAMiddleware);
 
-roleRouter.post('/', create);
 roleRouter.post('/list', list);
+roleRouter.post('/', create);
 roleRouter.get('/:id', read);
 roleRouter.put('/:id', update);
 roleRouter.delete('/:id', del);
