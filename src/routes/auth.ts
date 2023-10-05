@@ -2,7 +2,7 @@ import {Router} from 'express';
 
 import {authUserMiddleware} from '@middlewares/user';
 import {login} from '@controllers/auth/login';
-import { loginValidation } from '@validations/login';
+import { loginValidation } from '@validations/user/login';
 import { logout } from '@controllers/auth/logout';
 import { forceLogout } from '@controllers/auth/forceLogout';
 import { twoFA } from '@controllers/auth/twoFA';

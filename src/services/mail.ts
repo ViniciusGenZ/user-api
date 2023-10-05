@@ -5,7 +5,7 @@ import { IMailTo } from '@interfaces/IMailTo';
 const client = nodemailer.createTransport({
 	SES: new aws.SES({
 		apiVersion: '2010-12-01',
-		region: 'us-west-2',
+		region: 'sa-east-1',
 		credentials: {
 			accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
 			secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,

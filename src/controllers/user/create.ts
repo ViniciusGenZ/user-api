@@ -1,6 +1,5 @@
 import mailService from '@services/mail';
 import optService from '@services/otp';
-import roleService from '@services/role';
 import userService from '@services/user';
 import { formatResponse } from '@adapters/formatResponse';
 import { Request, Response } from 'express';
@@ -14,14 +13,6 @@ export const create = async (req: Request, res: Response) => {
 		const phone_number_verification_code = optService.generateOTP();
 		const email_verification_code = optService.generateOTP();
 
-		const role = await roleService.list({
-			offset: 0,
-			limit: 1,
-			filter: {
-				name_en: 'Admin',
-			},
-		});
-
 		const newUser = await userService.create({
 			...req.body,
 			created_by: 1,
@@ -30,7 +21,6 @@ export const create = async (req: Request, res: Response) => {
 			email_verification_code_expiration: code_expiration,
 			phone_number_verification_code,
 			phone_number_verification_code_expiration: code_expiration,
-			roles_id_role: role.rows[0].id_role,
 		});
 
 		await mailService.sendMailConfirmation(

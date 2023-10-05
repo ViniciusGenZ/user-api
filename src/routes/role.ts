@@ -9,6 +9,7 @@ import { del } from '@controllers/role/delete';
 import { list } from '@controllers/role/list';
 import { ipMiddleware } from '@middlewares/ip';
 import { twoFAMiddleware } from '@middlewares/twofa';
+import { roleCreateValidation } from '@validations/role/create';
 
 const roleRouter = Router();
 
@@ -17,10 +18,10 @@ roleRouter.use(sessionMiddleware);
 roleRouter.use(ipMiddleware);
 roleRouter.use(twoFAMiddleware);
 
-roleRouter.post('/', create);
+roleRouter.post('/list', list);
+roleRouter.post('/', roleCreateValidation, create);
 roleRouter.get('/:id', read);
 roleRouter.put('/:id', update);
 roleRouter.delete('/:id', del);
-roleRouter.post('/list', list);
 
 export default roleRouter;

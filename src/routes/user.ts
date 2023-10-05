@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { create } from '@controllers/user/create';
-import { userCreateValidation } from '@validations/create';
+import { userCreateValidation } from '@validations/user/create';
 import { read } from '@controllers/user/read';
 import { list } from '@controllers/user/list';
 import { sessionMiddleware } from '@middlewares/session';
